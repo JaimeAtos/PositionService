@@ -14,5 +14,6 @@
 - ResourcePosition
 
 ### Pagination with Dapper (Octavio)
-- Fix pagination with postgresql in all repositories (LIMIT | FETCH)
+- ~~Fix pagination with postgresql in all repositories (LIMIT | FETCH)~~
 - GetAllEntities inside controllers
+- ~~fixed tracking by UserModifiedId and DateLastModified~~
