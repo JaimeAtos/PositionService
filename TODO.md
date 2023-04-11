@@ -15,4 +15,4 @@
 
 ### Pagination with Dapper
 - Fix pagination with postgresql in all repositories (LIMIT | FETCH)
-- GetAllEntities
+- GetAllEntities inside controllers
