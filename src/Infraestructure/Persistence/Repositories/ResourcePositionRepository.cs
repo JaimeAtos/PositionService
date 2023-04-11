@@ -70,11 +70,18 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			var sql =
 				"""
 				UPDATE "ResourcePosition"
-				SET "State" = false
+				SET "State" = false,
+				    "UserModifiedId" = @UserModifiedId,
+				    "DateLastModified" = @DateLastModified
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.ExecuteAsync(sql, new { Id = id });
+			var result = await con.ExecuteAsync(sql, new
+			{
+				Id = id,
+				UserModifiedId = Guid.NewGuid(),
+				DateLastModified = DateTime.UtcNow
+			});
 			return result > 0;
 		}, cancellationToken);
 		return task;
@@ -98,7 +105,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "IsDefault",
 				       "ResourceName" FROM "ResourcePosition" WHERE "State" = @IsActive
 				                                          ORDER BY "CreationTime" DESC 
-				                                          LIMIT 300;
+				                                          LIMIT 300 OFFSET 0;
 				""";
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<ResourcePosition>(query, param);
