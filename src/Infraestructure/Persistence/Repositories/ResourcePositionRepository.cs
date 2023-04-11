@@ -95,7 +95,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 		{
 			var query =
 				"""
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
 				       "UserModifiedId",
@@ -128,7 +129,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 		{
 			var query =
 				"""
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
 				       "UserModifiedId",

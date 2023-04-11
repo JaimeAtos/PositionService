@@ -97,7 +97,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 		{
 			var query =
 				"""
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
 				       "UserModifiedId",
@@ -131,7 +132,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 		{
 			var query =
 				""" 
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
 				       "UserModifiedId",

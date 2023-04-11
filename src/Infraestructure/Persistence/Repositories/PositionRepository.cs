@@ -92,7 +92,8 @@ public class PositionRepository : IPositionRepository
 		{
 			var query =
 				"""
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
 				       "UserModifiedId",
@@ -109,7 +110,7 @@ public class PositionRepository : IPositionRepository
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<Position>(query, new
 			{
-				Offset = (page < 1? 0 : page - 1) * offset,
+				Offset = (page < 1 ? 0 : page - 1) * offset,
 				PageSize = offset,
 				IsActive = true
 			});
@@ -125,10 +126,11 @@ public class PositionRepository : IPositionRepository
 		{
 			var query =
 				"""
-				SELECT "UserCreatorId",
+				SELECT "Id",
+				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserCreatorId",
+				       "UserModifiedId",
 				       "DateLastModified",
 				       "Description",
 				       "ClientId",
