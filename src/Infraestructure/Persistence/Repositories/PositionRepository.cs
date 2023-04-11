@@ -87,7 +87,7 @@ public class PositionRepository : IPositionRepository
 
 	/*TODO: designar a alguien que se encargue de realizar la paginacion dentro de dapper*/
 	/*Para usar FETCH es necesario usar cursores*/
-	public async Task<IEnumerable<Position>> GetAllAsync(object? param = null,
+	public async Task<IEnumerable<Position>> GetAllAsync(int page = 1, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -105,10 +105,15 @@ public class PositionRepository : IPositionRepository
 				       "PositionLevel"
 				FROM "Position" WHERE "State" = @IsActive
 				                ORDER BY "CreationTime" DESC
-				                LIMIT 300 OFFSET 0;
+				                OFFSET @Offset
+				                FETCH NEXT @PageSize ROWS ONLY;
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<Position>(query, param);
+			var result = await con.QueryAsync<Position>(query, new
+			{
+				Offset = (page <= 1? 1 : page - 1) * offset,
+				PageSize = offset
+			});
 			return result;
 		}, cancellationToken);
 

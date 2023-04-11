@@ -90,7 +90,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 	}
 
 	/*TODO: designar a alguien que se encargue de realizar la paginacion dentro de dapper*/
-	public async Task<IEnumerable<PositionSkill>> GetAllAsync(object? param = null,
+	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page = 1, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -109,10 +109,15 @@ public class PositionSkillRepository : IPositionSkillRepository
 				       "PositionSkillType"
 				FROM "PositionSkill" WHERE "State" = @IsActive
 				                     ORDER BY "CreationTime" DESC
-				                	LIMIT 300 OFFSET 0;
+				                     OFFSET @Offset
+				                     FETCH NEXT @PageSize ROWS ONLY;
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<PositionSkill>(query, param);
+			var result = await con.QueryAsync<PositionSkill>(query, new
+			{
+				Offset = (page == 1? 1: page - 1) * offset,
+				PageSize = offset 
+			});
 			return result;
 		}, cancellationToken);
 

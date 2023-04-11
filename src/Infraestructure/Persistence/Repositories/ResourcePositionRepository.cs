@@ -87,7 +87,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(object? param = null,
+	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(int page = 1, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -105,10 +105,15 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "IsDefault",
 				       "ResourceName" FROM "ResourcePosition" WHERE "State" = @IsActive
 				                                          ORDER BY "CreationTime" DESC 
-				                                          LIMIT 300 OFFSET 0;
+				                                          OFFSET @Offset
+				                                          FETCH NEXT @PageSize ROWS ONLY;
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<ResourcePosition>(query, param);
+			var result = await con.QueryAsync<ResourcePosition>(query, new
+			{
+				Offset = (page <= 1? 1 : page - 1) * offset,
+				PageSize = offset
+			});
 			return result;
 		}, cancellationToken);
 
