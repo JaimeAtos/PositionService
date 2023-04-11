@@ -97,7 +97,7 @@ public class PositionRepository : IPositionRepository
 				       "PositionLevel"
 				FROM "Position" WHERE "State" = @IsActive
 				                ORDER BY "CreationTime" DESC
-				                LIMIT 300;
+				                FETCH NEXT 300 ROWS;
 				""";
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<Position>(query, param);
