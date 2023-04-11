@@ -1,3 +1,4 @@
+using Application.Features.ResourcePositions.Queries.GetResourcePositionById;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers.v1.ResourcePosition;
@@ -8,7 +9,7 @@ public class ReadResourcePositionController : BaseApiController
 	[HttpGet("{id:guid}")]
 	public async Task<IActionResult> GetResourcePositionById(Guid id)
 	{
-		return Ok(await Mediator.Send(new {Id = id}));
+		return Ok(await Mediator.Send(new GetResourcePositionByIdQuery{Id = id}));
 	}
 
 	[HttpGet]
