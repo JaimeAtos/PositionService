@@ -157,7 +157,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 					"PercentMathPosition" = @PercentMathPosition,
 				    "IsDefault" = @IsDefault,
 				    "ResourceName" = @ResourceName
-				WHERE "Id" = @Id";
+				WHERE "Id" = @Id;
 				""";
 			using var con = _dbContext.CreateConnection();
 			var result = await con.ExecuteAsync(sql, new

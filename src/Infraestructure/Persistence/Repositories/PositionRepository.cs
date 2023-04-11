@@ -85,8 +85,6 @@ public class PositionRepository : IPositionRepository
 		return task;
 	}
 
-	/*TODO: designar a alguien que se encargue de realizar la paginacion dentro de dapper*/
-	/*Para usar FETCH es necesario usar cursores*/
 	public async Task<IEnumerable<Position>> GetAllAsync(int page = 1, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{

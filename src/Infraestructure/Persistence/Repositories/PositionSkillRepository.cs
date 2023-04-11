@@ -89,7 +89,6 @@ public class PositionSkillRepository : IPositionSkillRepository
 		return task;
 	}
 
-	/*TODO: designar a alguien que se encargue de realizar la paginacion dentro de dapper*/
 	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page = 1, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{

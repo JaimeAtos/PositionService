@@ -5,9 +5,9 @@ namespace Controllers.v1.Position;
 [ApiVersion("1.0")]
 public class ReadPositionController : BaseApiController
 {
-	[HttpGet]
-	public async Task<IActionResult> GetPositionById()
+	[HttpGet("{id:guid}")]
+	public async Task<IActionResult> GetPositionById(Guid id)
 	{
-		return Ok(null);
+		return Ok(await Mediator.Send(new {Id = id}));
 	}
 }
