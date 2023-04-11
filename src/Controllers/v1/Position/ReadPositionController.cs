@@ -16,15 +16,15 @@ public class ReadPositionController : BaseApiController
 	[HttpGet]
 	public async Task<IActionResult> GetAllPositions([FromQuery] GetAllPositionParameters filters)
 	{
-		return Ok(await Mediator.Send(new GetAllPositionParameters
+		return Ok(await Mediator.Send(new GetAllPositionQuery
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
-			Id = filters.Id,
-			State = filters.State,
-			ClientId = filters.ClientId,
-			ClientDescription = filters.ClientDescription,
-			Description = filters.Description
+			// Id = filters.Id,
+			// State = filters.State,
+			// ClientId = filters.ClientId,
+			// ClientDescription = filters.ClientDescription,
+			// Description = filters.Description
 		}));
 	}
 }

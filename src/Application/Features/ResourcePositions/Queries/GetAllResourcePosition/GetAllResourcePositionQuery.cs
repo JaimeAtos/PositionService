@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.ResourcePositions.Queries.GetAllResourcePosition;
 
-public class GetAllResourcePositionQueries : IRequest<PagedResponse<List<ResourcePositionDto>>>
+public class GetAllResourcePositionQuery : IRequest<PagedResponse<List<ResourcePositionDto>>>
 {
     public int PageNumber { get; set; }
     public int PageSize { get; set; }
@@ -19,7 +19,7 @@ public class GetAllResourcePositionQueries : IRequest<PagedResponse<List<Resourc
     public string ResourceName { get; set; }
 }
 
-public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResourcePositionQueries, PagedResponse<List<ResourcePositionDto>>>
+public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResourcePositionQuery, PagedResponse<List<ResourcePositionDto>>>
 {
     private readonly IResourcePositionRepository _resourcePositionRepository;
     private readonly IMapper _mapper;
@@ -30,16 +30,18 @@ public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResour
         _mapper = mapper;
     }
 
-    public Task<PagedResponse<List<ResourcePositionDto>>> Handle(GetAllResourcePositionQueries request, CancellationToken cancellationToken)
+    public Task<PagedResponse<List<ResourcePositionDto>>> Handle(GetAllResourcePositionQuery request, CancellationToken cancellationToken)
     {
         if (request is null)
             throw new ArgumentNullException();
         return ProcessHandle(request, cancellationToken);
     }
 
-    private async Task<PagedResponse<List<ResourcePositionDto>>> ProcessHandle(GetAllResourcePositionQueries request, CancellationToken cancellationToken)
+    private async Task<PagedResponse<List<ResourcePositionDto>>> ProcessHandle(GetAllResourcePositionQuery request, CancellationToken cancellationToken)
     {
-        return null;
+        var record = await _resourcePositionRepository.GetAllAsync(request.PageNumber, request.PageSize, cancellationToken);
+        var recordDto = _mapper.Map<List<ResourcePositionDto>>(record);
+        return new PagedResponse<List<ResourcePositionDto>>(recordDto, request.PageNumber, request.PageSize);
     }
 }
 

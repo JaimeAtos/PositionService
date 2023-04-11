@@ -1,3 +1,4 @@
+using Application.Features.ResourcePositions.Queries.GetAllResourcePosition;
 using Application.Features.ResourcePositions.Queries.GetResourcePositionById;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +10,23 @@ public class ReadResourcePositionController : BaseApiController
 	[HttpGet("{id:guid}")]
 	public async Task<IActionResult> GetResourcePositionById(Guid id)
 	{
-		return Ok(await Mediator.Send(new GetResourcePositionByIdQuery{Id = id}));
+		return Ok(await Mediator.Send(new GetResourcePositionByIdQuery { Id = id }));
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAllResourcePositions()
+	public async Task<IActionResult> GetAllResourcePositions([FromQuery] GetAllResourcePositionParameters filters)
 	{
-		return Ok(await Mediator.Send(new { }));
+		return Ok(await Mediator.Send(new GetAllResourcePositionQuery
+		{
+			PageNumber = filters.PageNumber,
+			PageSize = filters.PageSize,
+			// Id = filters.Id,
+			// State = filters.State,
+			// ResourceId = filters.ResourceId,
+			// PositionId = filters.PositionId,
+			// PercentMathPosition = filters.PercentMathPosition,
+			// IsDefault = filters.IsDefault,
+			// ResourceName = filters.ResourceName
+		}));
 	}
 }

@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.JavaScript;
+using System.Security.AccessControl;
 using Dapper;
 using Domain.Entities;
 using Domain.Repositories;
@@ -89,7 +90,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page = 1, int offset = 10,
+	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page = 0, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -114,8 +115,9 @@ public class PositionSkillRepository : IPositionSkillRepository
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<PositionSkill>(query, new
 			{
-				Offset = (page == 1? 1: page - 1) * offset,
-				PageSize = offset 
+				Offset = (page < 1? 0 : page - 1) * offset,
+				PageSize = offset,
+				IsActive = true
 			});
 			return result;
 		}, cancellationToken);

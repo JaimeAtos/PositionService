@@ -22,7 +22,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				"""
                 INSERT INTO "ResourcePosition"
                     ("UserCreatorId",
-                     "CreationTime", "State",
+                     "CreationTime",
+                     "State",
                      "UserModifiedId",
                      "DateLastModified",
                      "ResourceId",
@@ -87,7 +88,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(int page = 1, int offset = 10,
+	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(int page = 0, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -111,8 +112,9 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<ResourcePosition>(query, new
 			{
-				Offset = (page <= 1? 1 : page - 1) * offset,
-				PageSize = offset
+				Offset = (page < 1? 1 : page - 1) * offset,
+				PageSize = offset,
+				IsActive = true
 			});
 			return result;
 		}, cancellationToken);

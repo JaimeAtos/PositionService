@@ -85,7 +85,7 @@ public class PositionRepository : IPositionRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<Position>> GetAllAsync(int page = 1, int offset = 10,
+	public async Task<IEnumerable<Position>> GetAllAsync(int page = 0, int offset = 10,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -109,8 +109,9 @@ public class PositionRepository : IPositionRepository
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<Position>(query, new
 			{
-				Offset = (page <= 1? 1 : page - 1) * offset,
-				PageSize = offset
+				Offset = (page < 1? 0 : page - 1) * offset,
+				PageSize = offset,
+				IsActive = true
 			});
 			return result;
 		}, cancellationToken);

@@ -16,17 +16,17 @@ public class ReadPositionSkillController : BaseApiController
 	[HttpGet]
 	public async Task<IActionResult> GetAllPositionSkills([FromQuery]GetAllPositionSkillParameters filters)
 	{
-		return Ok(await Mediator.Send(new GetAllPositionSkillParameters
+		return Ok(await Mediator.Send(new GetAllPositionSkillQuery()
 		{
-			Id = filters.Id,
-			State = filters.State,
-			MinToAccept = filters.MinToAccept,
+			// Id = filters.Id,
+			// State = filters.State,
+			// MinToAccept = filters.MinToAccept,
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
-			PositionId = filters.PositionId,
-			PositionSkillType = filters.PositionSkillType,
-			SkillId = filters.SkillId,
-			SkillName = filters.SkillName
+			// PositionId = filters.PositionId,
+			// PositionSkillType = filters.PositionSkillType,
+			// SkillId = filters.SkillId,
+			// SkillName = filters.SkillName
 		}));
 	}
 }

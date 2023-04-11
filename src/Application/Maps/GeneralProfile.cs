@@ -21,9 +21,9 @@ public class GeneralProfile : Profile
         #endregion
 
         #region DTOs
-        CreateMap<Position, GetPositionByIdQuery>();
-        CreateMap<PositionSkill, GetPositionSkillByIdQuery>();
-        CreateMap<ResourcePosition, GetResourcePositionByIdQuery>();
+        CreateMap<Position, PositionDto>();
+        CreateMap<PositionSkill, PositionSkillDto>();
+        CreateMap<ResourcePosition, ResourcePositionDto>();
         #endregion
     }
 }
