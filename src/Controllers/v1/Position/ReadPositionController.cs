@@ -10,4 +10,10 @@ public class ReadPositionController : BaseApiController
 	{
 		return Ok(await Mediator.Send(new {Id = id}));
 	}
+
+	[HttpGet]
+	public async Task<IActionResult> GetAllPositions()
+	{
+		return Ok(await Mediator.Send(new { }));
+	}
 }
