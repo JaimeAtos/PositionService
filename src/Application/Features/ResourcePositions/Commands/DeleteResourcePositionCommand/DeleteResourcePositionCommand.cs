@@ -34,7 +34,7 @@ public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResour
 
         position.State = false;
 
-        var state = await _resourcePositionRepository.UpdateAsync(position, position.Id, cancellationToken);
+        var state = await _resourcePositionRepository.DeleteAsync(position.Id, cancellationToken);
         return new Response<bool>(state);
     }
 

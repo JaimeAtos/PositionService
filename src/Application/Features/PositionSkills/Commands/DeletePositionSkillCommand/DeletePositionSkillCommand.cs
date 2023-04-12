@@ -32,7 +32,7 @@ public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionS
 		if (deleteRecord is null) throw new ApiException($"Position with id {request.Id} not found");
 
 		deleteRecord.State = false;
-		var state = await _positionSkillRepository.UpdateAsync(deleteRecord, deleteRecord.Id, cancellationToken);
+		var state = await _positionSkillRepository.DeleteAsync(deleteRecord.Id, cancellationToken);
 		return new Response<Guid>(state);
 	}
 }

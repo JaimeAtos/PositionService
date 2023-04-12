@@ -35,7 +35,7 @@ public class DeletePositionCommandHandler : IRequestHandler<DeletePositionComman
 
 		position.State = false;
 
-		var state = await _positionRepository.UpdateAsync(position, position.Id, cancellationToken);
+		var state = await _positionRepository.DeleteAsync(position.Id, cancellationToken);
 		return new Response<bool>(state);
 	}
 }
