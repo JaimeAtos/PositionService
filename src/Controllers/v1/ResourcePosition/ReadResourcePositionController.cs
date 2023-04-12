@@ -20,13 +20,6 @@ public class ReadResourcePositionController : BaseApiController
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
-			// Id = filters.Id,
-			// State = filters.State,
-			// ResourceId = filters.ResourceId,
-			// PositionId = filters.PositionId,
-			// PercentMathPosition = filters.PercentMathPosition,
-			// IsDefault = filters.IsDefault,
-			// ResourceName = filters.ResourceName
 		}));
 	}
 }

@@ -20,11 +20,6 @@ public class ReadPositionController : BaseApiController
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
-			// Id = filters.Id,
-			// State = filters.State,
-			// ClientId = filters.ClientId,
-			// ClientDescription = filters.ClientDescription,
-			// Description = filters.Description
 		}));
 	}
 }

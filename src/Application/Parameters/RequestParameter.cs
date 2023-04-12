@@ -7,13 +7,13 @@ public class RequestParameter
 
 	public RequestParameter()
 	{
-		PageNumber = 1;
+		PageNumber = 0;
 		PageSize = 10;
 	}
 
 	public RequestParameter(int pageNumber, int pageSize)
 	{
-		PageNumber = pageNumber < 1 ? 1 : pageNumber;
+		PageNumber = pageNumber < 1 ? 0 : pageNumber;
 		PageSize = pageSize < 10 ? 10 : pageSize;
 	}
 }

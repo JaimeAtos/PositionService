@@ -18,15 +18,8 @@ public class ReadPositionSkillController : BaseApiController
 	{
 		return Ok(await Mediator.Send(new GetAllPositionSkillQuery()
 		{
-			// Id = filters.Id,
-			// State = filters.State,
-			// MinToAccept = filters.MinToAccept,
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
-			// PositionId = filters.PositionId,
-			// PositionSkillType = filters.PositionSkillType,
-			// SkillId = filters.SkillId,
-			// SkillName = filters.SkillName
 		}));
 	}
 }
