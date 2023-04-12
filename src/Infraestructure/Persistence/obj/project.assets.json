@@ -330,12 +330,11 @@
       ]
     },
     "UPgrade.Microservice.SDK.Core/1.0.28": {
-      "sha512": "x6ddkZbek9G/iy/P9541mQcZXleK/JefsRXaX8CBKh7gEC+yJkhof1joSKr5fJsk+5bwPsZM9RsbpogE5cG3IQ==",
+      "sha512": "1wJGCKkc02QZ/lrOc4E3mVXshtcfUt2XxILj4lfpO8gAR5B56VemmkghKni5JFwdc0HKWaK8snF8m+u33QEiWA==",
       "type": "package",
       "path": "upgrade.microservice.sdk.core/1.0.28",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "LICENSE.md",
         "lib/net6.0/Atos.Core.dll",
         "lib/net6.0/Atos.Core.xml",
@@ -382,6 +381,7 @@
         "net7.0"
       ],
       "sources": {
+        "/home/thend/.nuget/local_source": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

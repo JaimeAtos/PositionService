@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kqZunvt2ktErv+i6vvDqGZ7n/pXAF+lCZGhF+tZKTujKCPlB+/5MFjmAwPZQyhSoJq2CKffFvzdqs6wIk9ahqQ==",
+  "dgSpecHash": "qeGDUe0XxQpZiE99d7GZzIA00OTlrYiKrEQfnEZt60VrPfLwULfEjxFuOLSvQNKEuN6yVZTxi8Wc4qO9Z0kyWQ==",
   "success": true,
   "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Infraestructure/Persistence/Persistence.csproj",
   "expectedPackageFiles": [

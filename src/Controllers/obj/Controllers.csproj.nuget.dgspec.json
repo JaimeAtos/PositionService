@@ -20,6 +20,7 @@
           "net7.0"
         ],
         "sources": {
+          "/home/thend/.nuget/local_source": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -94,6 +95,7 @@
           "net7.0"
         ],
         "sources": {
+          "/home/thend/.nuget/local_source": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -165,6 +167,7 @@
           "net7.0"
         ],
         "sources": {
+          "/home/thend/.nuget/local_source": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -224,6 +227,7 @@
           "net7.0"
         ],
         "sources": {
+          "/home/thend/.nuget/local_source": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -294,6 +298,7 @@
           "net7.0"
         ],
         "sources": {
+          "/home/thend/.nuget/local_source": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
