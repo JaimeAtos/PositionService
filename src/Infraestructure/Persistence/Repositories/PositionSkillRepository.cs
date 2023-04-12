@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
-using System.Security.AccessControl;
 using Dapper;
 using Domain.Entities;
 using Domain.Repositories;
@@ -26,8 +24,8 @@ public class PositionSkillRepository : IPositionSkillRepository
                     ("UserCreatorId",
                      "CreationTime",
                      "State",
-                     "UserModifiedId",
-                     "DateLastModified",
+                     "UserModifierId",
+                     "DateLastModify",
                      "SkillId",
                      "PositionId",
                      "SkillName",
@@ -37,8 +35,8 @@ public class PositionSkillRepository : IPositionSkillRepository
                     (@UserCreatorId,
                      @CreationTime,
                      @State,
-                     @UserModifiedId,
-                     @DateLastModified,
+                     @UserModifierId,
+                     @DateLastModify,
                      @SkillId,
                      @PositionId,
                      @SkillName,
@@ -53,8 +51,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 					UserCreatorId = Guid.NewGuid(),
 					CreationTIme = DateTime.UtcNow,
 					State = true,
-					UserModifiedId = Guid.NewGuid(),
-					DateLastModified = DateTime.UtcNow,
+					UserModifierId = Guid.NewGuid(),
+					DateLastModify = DateTime.UtcNow,
 					entity.SkillId,
 					entity.PositionId,
 					entity.SkillName,
@@ -74,16 +72,16 @@ public class PositionSkillRepository : IPositionSkillRepository
 				"""
 				UPDATE "PositionSkill"
 				SET "State" = false,
-				    "UserModifiedId" = @UserModifiedId,
-				    "DateLastModified" = @DateLastModified
+				    "UserModifierId" = @UserModifierId,
+				    "DateLastModify" = @DateLastModify
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
 			var result = await con.ExecuteAsync(sql, new
 			{
 				Id = id,
-				UserModifiedId = Guid.NewGuid(),
-				DateLastModified = DateTime.UtcNow
+				UserModifierId = Guid.NewGuid(),
+				DateLastModify = DateTime.UtcNow
 			});
 			return result > 0;
 		}, cancellationToken);
@@ -101,8 +99,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "SkillId",
 				       "PositionId",
 				       "SkillName",
@@ -136,8 +134,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "SkillId",
 				       "PositionId",
 				       "SkillId",
@@ -160,8 +158,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 			var sql =
 				"""
 				UPDATE "PositionSkill"
-				SET "UserModifiedId" = @UserModifiedId,
-				    "DateLastModified" = @DateLastModified,
+				SET "UserModifierId" = @UserModifierId,
+				    "DateLastModify" = @DateLastModify,
 				    "SkillId" = @SkillId,
 				    "PositionSkillType"= @PositionId,
 				    "SkillName"= @SkillName,
@@ -173,8 +171,8 @@ public class PositionSkillRepository : IPositionSkillRepository
 			var result = await con.ExecuteAsync(sql, new
 			{
 				Id = id,
-				UserModifiedId = Guid.NewGuid(),
-				DateLastModified = DateTime.UtcNow,
+				UserModifierId = Guid.NewGuid(),
+				DateLastModify = DateTime.UtcNow,
 				entity.SkillId,
 				entity.PositionId,
 				entity.SkillName,

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "qh0/QohzJjCFdmi+bgbmYLzFRXZ3DouaHRuRUSBWvL+ZjIhRqidCV93561Nyst/wZJskk8VF1mLXSIg/DbHy7Q==",
+  "success": true,
+  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Core/Domain/Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/thend/.nuget/packages/microsoft.extensions.configuration/5.0.0/microsoft.extensions.configuration.5.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.configuration.abstractions/5.0.0/microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/upgrade.microservice.sdk.core/1.0.28/upgrade.microservice.sdk.core.1.0.28.nupkg.sha512"
+  ],
+  "logs": []
+}

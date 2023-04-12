@@ -24,8 +24,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
                     ("UserCreatorId",
                      "CreationTime",
                      "State",
-                     "UserModifiedId",
-                     "DateLastModified",
+                     "UserModifierId",
+                     "DateLastModify",
                      "ResourceId",
                      "PositionId",
                      "PercentMathPosition",
@@ -35,8 +35,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
                     (@UserCreatorId,
                      @CreationTime,
                      @State,
-                     @UserModifiedId,
-                     @DateLastModified,
+                     @UserModifierId,
+                     @DateLastModify,
                      @ResourceId,
                      @PositionId,
                      @PercentMathPosition,
@@ -52,7 +52,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 					CreationTime = DateTime.UtcNow,
 					State = true,
 					UserModfiedId = Guid.NewGuid(),
-					DateLastModified = DateTime.UtcNow,
+					DateLastModify = DateTime.UtcNow,
 					entity.ResourceId,
 					entity.PositionId,
 					entity.PercentMathPosition,
@@ -72,16 +72,16 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				"""
 				UPDATE "ResourcePosition"
 				SET "State" = false,
-				    "UserModifiedId" = @UserModifiedId,
-				    "DateLastModified" = @DateLastModified
+				    "UserModifierId" = @UserModifierId,
+				    "DateLastModify" = @DateLastModify
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
 			var result = await con.ExecuteAsync(sql, new
 			{
 				Id = id,
-				UserModifiedId = Guid.NewGuid(),
-				DateLastModified = DateTime.UtcNow
+				UserModifierId = Guid.NewGuid(),
+				DateLastModify = DateTime.UtcNow
 			});
 			return result > 0;
 		}, cancellationToken);
@@ -99,8 +99,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "ResourceId",
 				       "PositionId",
 				       "PercentMathPosition",
@@ -133,8 +133,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "ResourceId",
 				       "PositionId",
 				       "PercentMathPosition",
@@ -156,8 +156,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			var sql =
 				"""
 				UPDATE "ResourcePosition"
-				SET "DateLastModified" = @DateLastModified,
-					"UserModifiedId" = @UserModifiedId,
+				SET "DateLastModify" = @DateLastModify,
+					"UserModifierId" = @UserModifierId,
 					"PercentMathPosition" = @PercentMathPosition,
 				    "IsDefault" = @IsDefault,
 				    "ResourceName" = @ResourceName
@@ -167,8 +167,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			var result = await con.ExecuteAsync(sql, new
 			{
 				Id = id,
-				DateLastModified = DateTime.UtcNow,
-				UserModifiedId = Guid.NewGuid(),
+				DateLastModify = DateTime.UtcNow,
+				UserModifierId = Guid.NewGuid(),
 				entity.PercentMathPosition,
 				entity.IsDefault,
 				entity.ResourceName,

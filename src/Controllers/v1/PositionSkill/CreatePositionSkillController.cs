@@ -18,7 +18,7 @@ public class CreatePositionSkillController : BaseApiController
     private async Task<IActionResult> ProcessCreatePositionSkill(CreatePositionSkillCommand command, CancellationToken cancellation = default)
     {
         var result = await Mediator.Send(command, cancellation);
-        return CreatedAtRoute("GetPositionSkillById", new { id = result}, command);
+        return CreatedAtRoute("GetPositionSkillById", new {id = result}, command);
     }
 
 }

@@ -19,6 +19,6 @@ public class CreatePositionController : BaseApiController
 		CancellationToken cancellationToken = default)
 	{
 		var result = await Mediator.Send(command, cancellationToken);
-		return CreatedAtRoute("GetPositionById", new { id = result}, command);
+		return CreatedAtRoute("GetPositionById", routeValues: new {id = result}, command);
 	}
 }

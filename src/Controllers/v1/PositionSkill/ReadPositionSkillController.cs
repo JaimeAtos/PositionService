@@ -7,7 +7,7 @@ namespace Controllers.v1.PositionSkill;
 [ApiVersion("1.0")]
 public class ReadPositionSkillController : BaseApiController
 {
-	[HttpGet("{id:guid}")]
+	[HttpGet("{id}", Name = "GetPositionSkillById")]
 	public async Task<IActionResult> GetPositionSkillById(Guid id)
 	{
 		return Ok(await Mediator.Send(new GetPositionSkillByIdQuery{ Id = id }));

@@ -7,7 +7,7 @@ namespace Controllers.v1.ResourcePosition;
 [ApiVersion("1.0")]
 public class ReadResourcePositionController : BaseApiController
 {
-	[HttpGet("{id:guid}")]
+	[HttpGet("{id}", Name = "GetResourcePositionById")]
 	public async Task<IActionResult> GetResourcePositionById(Guid id)
 	{
 		return Ok(await Mediator.Send(new GetResourcePositionByIdQuery { Id = id }));

@@ -23,8 +23,8 @@ public class PositionRepository : IPositionRepository
 				INSERT INTO "Position"
 					("UserCreatorId",
 					 "CreationTime",
-					 "UserModifiedId",
-					 "DateLastModified",
+					 "UserModifierId",
+					 "DateLastModify",
 					 "State",
 					 "Description",
 					 "ClientId",
@@ -69,8 +69,8 @@ public class PositionRepository : IPositionRepository
 				"""
 				UPDATE "Position"
 				SET "State" = false,
-				    "UserModifiedId" = @UserModifiedId,
-				    "DateLastModified" = @DateLastModified
+				    "UserModifierId" = @UserModifiedId,
+				    "DateLastModify" = @DateLastModified
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -96,8 +96,8 @@ public class PositionRepository : IPositionRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "Description",
 				       "ClientId",
 				       "ClientDescription",
@@ -130,8 +130,8 @@ public class PositionRepository : IPositionRepository
 				       "UserCreatorId",
 				       "CreationTime",
 				       "State",
-				       "UserModifiedId",
-				       "DateLastModified",
+				       "UserModifierId",
+				       "DateLastModify",
 				       "Description",
 				       "ClientId",
 				       "ClientDescription",
@@ -153,8 +153,8 @@ public class PositionRepository : IPositionRepository
 			var sql =
 				"""
 				UPDATE "Position"
-				SET "UserModifiedId" = @UserModifiedId,
-				    "DateLastModified" = @DateLastModified,
+				SET "UserModifierId" = @UserModifiedId,
+				    "DateLastModify" = @DateLastModified,
 				    "Description" = @Description,
 				    "ClientId" = @ClientId,
 				    "ClientDescription" = @ClientDescription,
