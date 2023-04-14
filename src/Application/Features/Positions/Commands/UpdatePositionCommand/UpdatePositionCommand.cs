@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -6,15 +7,15 @@ using MediatR;
 
 namespace Application.Features.Positions.Commands.UpdatePositionCommand;
 
-public class UpdatePositionCommand : IRequest<Response<Guid>>
+public class UpdatePositionCommand : IRequest<Response<bool>>
 {
     public Guid Id { get; set; }
-    public string Description { get; set; }
-    public string ClientDescription { get; set; }
-    public string PositionLevel { get; set; }
+    public string? Description { get; set; }
+    public string? ClientDescription { get; set; }
+    public string? PositionLevel { get; set; }
 }
 
-public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionCommand, Response<Guid>>
+public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionCommand, Response<bool>>
 {
     private readonly IPositionRepository _positionRepository;
     private readonly IMapper _mapper;
@@ -25,19 +26,19 @@ public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionComman
         _mapper = mapper;
     }
 
-    public Task<Response<Guid>> Handle(UpdatePositionCommand request, CancellationToken cancellationToken = default)
+    public Task<Response<bool>> Handle(UpdatePositionCommand request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
 
         return ProcessHandle(request, cancellationToken);
     }
 
-    private async Task<Response<Guid>> ProcessHandle(UpdatePositionCommand request, CancellationToken cancellationToken = default)
+    private async Task<Response<bool>> ProcessHandle(UpdatePositionCommand request, CancellationToken cancellationToken = default)
     {
         var newRecord = _mapper.Map<Position>(request);
         var data = await _positionRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
 
-        return new Response<Guid>(data);
+        return new Response<bool>(data);
     }
 }

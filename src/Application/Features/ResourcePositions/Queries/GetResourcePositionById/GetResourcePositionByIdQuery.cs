@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Repositories;
@@ -25,19 +26,14 @@ public class GetResourcePositionByIdQueryHandler : IRequestHandler<GetResourcePo
     {
         
         if (request == null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
         return ProcessHandle(request, cancellationToken);
     }
 
-    public async Task<Response<ResourcePositionDto>> ProcessHandle(GetResourcePositionByIdQuery request, CancellationToken cancellationToken)
+    private async Task<Response<ResourcePositionDto>> ProcessHandle(GetResourcePositionByIdQuery request, CancellationToken cancellationToken)
     {
         var resourcePosition = await _resourcePositionRepository.GetEntityByIdAsync(request.Id, cancellationToken);
-        if (resourcePosition == null)
-            throw new KeyNotFoundException($"Record with id {request.Id} not found");
-        else
-        {
-            var dto = _mapper.Map<ResourcePositionDto>(resourcePosition);
-            return new Response<ResourcePositionDto>(dto);
-        }
+        var dto = _mapper.Map<ResourcePositionDto>(resourcePosition);
+        return new Response<ResourcePositionDto>(dto);
     }
 }

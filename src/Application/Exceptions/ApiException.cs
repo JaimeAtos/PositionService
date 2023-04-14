@@ -1,10 +1,16 @@
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Application.Exceptions;
 
+[Serializable]
 public class ApiException : Exception
 {
-	public ApiException() : base()
+	protected ApiException(SerializationInfo info, StreamingContext streamingContext) : base(info, streamingContext)
+	{
+		
+	}
+	public ApiException() 
 	{
 	}
 

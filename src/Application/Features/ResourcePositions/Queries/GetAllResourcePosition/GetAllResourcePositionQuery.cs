@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Repositories;
@@ -16,7 +17,7 @@ public class GetAllResourcePositionQuery : IRequest<PagedResponse<List<ResourceP
     public Guid PositionId { get; set; }
     public byte PercentMathPosition { get; set; }
     public bool IsDefault { get; set; }
-    public string ResourceName { get; set; }
+    public string? ResourceName { get; set; }
 }
 
 public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResourcePositionQuery, PagedResponse<List<ResourcePositionDto>>>
@@ -33,7 +34,7 @@ public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResour
     public Task<PagedResponse<List<ResourcePositionDto>>> Handle(GetAllResourcePositionQuery request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
         return ProcessHandle(request, cancellationToken);
     }
 

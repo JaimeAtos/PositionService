@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Repositories;
@@ -14,7 +15,7 @@ public class GetAllPositionSkillQuery : IRequest<PagedResponse<List<PositionSkil
 	public bool State { get; set; }
 	public Guid SkillId { get; set; }
 	public Guid PositionId { get; set; }
-	public string SkillName { get; set; }
+	public string? SkillName { get; set; }
 	public byte? MinToAccept { get; set; }
 	public byte PositionSkillType { get; set; }
 }
@@ -35,18 +36,16 @@ public class
 		CancellationToken cancellationToken)
 	{
 		if (request is null)
-			throw new ArgumentNullException();
+			throw new ApiException("Request is empty");
 
 		return ProcessHandle(request, cancellationToken);
 	}
 
-	public async Task<PagedResponse<List<PositionSkillDto>>> ProcessHandle(GetAllPositionSkillQuery request,
+	private async Task<PagedResponse<List<PositionSkillDto>>> ProcessHandle(GetAllPositionSkillQuery request,
 		CancellationToken cancellationToken = default)
 	{
 		var record = await _positionSkillRepository.GetAllAsync(request.PageNumber, request.PageSize, cancellationToken);
-		var recordDto = _mapper.Map<List<PositionSkillDto>>(record)
-			.Where(ps => ps.State)
-			.ToList();
+		var recordDto = _mapper.Map<List<PositionSkillDto>>(record);
 
 		return new PagedResponse<List<PositionSkillDto>>(recordDto, request.PageNumber, request.PageSize);
 	}

@@ -8,5 +8,5 @@ public class ResourcePosition : EntityBaseAuditable<Guid, Guid>
     public Guid PositionId { get; set; }
     public byte PercentMathPosition { get; set; } //20%
     public bool IsDefault { get; set; }
-    public string ResourceName { get; set; }
+    public string? ResourceName { get; set; }
 }

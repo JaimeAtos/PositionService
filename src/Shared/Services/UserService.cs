@@ -6,6 +6,6 @@ public class UserService : IUserService
 {
     public Guid GetUserId()
     {
-        return new Guid();
+        return Guid.NewGuid();
     }
 }

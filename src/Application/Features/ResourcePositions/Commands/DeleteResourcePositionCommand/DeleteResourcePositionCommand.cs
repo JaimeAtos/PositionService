@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Wrappers;
 using Domain.Repositories;
 using MediatR;
@@ -20,7 +21,7 @@ public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResour
     public Task<Response<bool>> Handle(DeleteResourcePositionCommand request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException();
 
         return ProcessHandle(request, cancellationToken);
     }
@@ -30,7 +31,7 @@ public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResour
         var position = await _resourcePositionRepository.GetEntityByIdAsync(request.Id, cancellationToken);
 
         if(position is null)
-            throw new ArgumentNullException();
+            throw new ApiException($" Entity with {request.Id} not found");
 
         position.State = false;
 

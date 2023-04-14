@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -8,10 +9,10 @@ namespace Application.Features.Positions.Commands.CreatePositionCommand;
 
 public class CreatePositionCommand : IRequest<Response<Guid>>
 {
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public Guid ClientId { get; set; }
-    public string ClientDescription { get; set; }
-    public string PositionLevel { get; set; }
+    public string? ClientDescription { get; set; }
+    public string? PositionLevel { get; set; }
 }
 
 public class CreatePositionCommandHandler : IRequestHandler<CreatePositionCommand, Response<Guid>>
@@ -25,10 +26,10 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
         _mapper = mapper;
     }
 
-    public Task<Response<Guid>> Handle(CreatePositionCommand request, CancellationToken cancellationToken = default)
+    public Task<Response<Guid>> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
 
         return ProcessHandle(request, cancellationToken);
     }

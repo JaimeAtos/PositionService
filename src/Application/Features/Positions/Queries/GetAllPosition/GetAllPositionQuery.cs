@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Repositories;
@@ -12,9 +13,9 @@ public class GetAllPositionQuery : IRequest<PagedResponse<List<PositionDto>>>
 	public int PageSize { get; set; }
 	public Guid Id { get; set; }
 	public bool State { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public Guid ClientId { get; set; }
-    public string ClientDescription { get; set; }
+    public string? ClientDescription { get; set; }
 }
 
 public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, PagedResponse<List<PositionDto>>>
@@ -31,7 +32,7 @@ public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, P
 	public Task<PagedResponse<List<PositionDto>>> Handle(GetAllPositionQuery request, CancellationToken cancellationToken)
 	{
 		if (request is null)
-			throw new ArgumentNullException();
+			throw new ApiException("Request is empty");
 		return ProcessHandle(request, cancellationToken);
 	}
 

@@ -1,5 +1,7 @@
 using Application.Features.Positions.Queries.GetALlPosition;
 using Application.Features.Positions.Queries.GetPositionById;
+using Application.Parameters;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers.v1.Position;
@@ -7,6 +9,10 @@ namespace Controllers.v1.Position;
 [ApiVersion("1.0")]
 public class ReadPositionController : BaseApiController
 {
+	public ReadPositionController(IMediator mediator) : base(mediator)
+	{
+	}
+	
 	[HttpGet("{id}", Name = "GetPositionById")]
 	public async Task<IActionResult> GetPositionById(Guid id)
 	{
@@ -14,7 +20,7 @@ public class ReadPositionController : BaseApiController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAllPositions([FromQuery] GetAllPositionParameters filters)
+	public async Task<IActionResult> GetAllPositions([FromQuery] RequestParameter filters)
 	{
 		return Ok(await Mediator.Send(new GetAllPositionQuery
 		{
@@ -22,4 +28,5 @@ public class ReadPositionController : BaseApiController
 			PageSize = filters.PageSize,
 		}));
 	}
+
 }

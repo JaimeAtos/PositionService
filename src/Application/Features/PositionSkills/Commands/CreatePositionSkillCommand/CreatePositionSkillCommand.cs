@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -10,7 +11,7 @@ public class CreatePositionSkillCommand : IRequest<Response<Guid>>
 {
         public Guid SkillId { get; set; }
         public Guid PositionId { get; set; }
-        public string SkillName { get; set; }
+        public string? SkillName { get; set; }
         public byte? MinToAccept { get; set; }
         public byte PositionSkillType { get; set; }
 
@@ -30,7 +31,7 @@ public class CreatePositionSkillCommandHandler : IRequestHandler<CreatePositionS
     public Task<Response<Guid>> Handle(CreatePositionSkillCommand request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
         
         return ProcessHandle(request, cancellationToken);
     }

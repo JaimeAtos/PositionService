@@ -22,7 +22,7 @@ public class DeletePositionCommandHandler : IRequestHandler<DeletePositionComman
 	public Task<Response<bool>> Handle(DeletePositionCommand request, CancellationToken cancellationToken)
 	{
 		if (request is null)
-			throw new ArgumentNullException();
+			throw new ApiException("Request is empty");
 
 		return ProcessHandle(request, cancellationToken);
 	}

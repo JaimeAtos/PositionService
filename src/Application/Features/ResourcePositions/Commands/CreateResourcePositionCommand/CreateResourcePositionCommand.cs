@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -12,7 +13,7 @@ public class CreateResourcePositionCommand : IRequest<Response<Guid>>
     public Guid PositionId { get; set; }
     public byte PercentMathPosition { get; set; }
     public bool IsDefault { get; set; }
-    public string ResourceName { get; set; }
+    public string? ResourceName { get; set; }
 }
 
 public class CreateResourcePositionCommandHandler : IRequestHandler<CreateResourcePositionCommand, Response<Guid>>
@@ -26,15 +27,15 @@ public class CreateResourcePositionCommandHandler : IRequestHandler<CreateResour
         _mapper = mapper;
     }
 
-    public Task<Response<Guid>> Handle(CreateResourcePositionCommand request, CancellationToken cancellationToken = default)
+    public Task<Response<Guid>> Handle(CreateResourcePositionCommand request, CancellationToken cancellationToken)
     {
         if (request is null)
-            throw new ArgumentNullException();
+            throw new ApiException("Request is empty");
 
         return ProcessHandle(request, cancellationToken);
     }
 
-    private async Task<Response<Guid>> ProcessHandle(CreateResourcePositionCommand request, CancellationToken cancellationToken = default)
+    private async Task<Response<Guid>> ProcessHandle(CreateResourcePositionCommand request, CancellationToken cancellationToken)
     {
         var newRecord = _mapper.Map<ResourcePosition>(request);
         var data = await _resourcePositionRepository.CreateAsync(newRecord, cancellationToken);
