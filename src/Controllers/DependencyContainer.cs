@@ -17,7 +17,6 @@ public static class DependencyContainer
 			cfg.ReportApiVersions = true;
 		});
 		
-		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
 
 		return services;
 	}

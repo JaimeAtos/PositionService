@@ -5,7 +5,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DBUSER": "position",
+        "DBHOST": "172.18.0.2",
+        "DBPORT": "5432",
+        "DBNAME": "position",
+        "DBPASSWORD": "UPgrade2023**"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5017"
@@ -15,7 +20,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DBUSER": "position",
+        "DBHOST": "172.18.0.2",
+        "DBPORT": "5432",
+        "DBNAME": "position",
+        "DBPASSWORD": "UPgrade2023**"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7079;http://localhost:5017"
@@ -25,7 +35,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DBUSER": "position",
+        "DBHOST": "172.18.0.2",
+        "DBPORT": "5432",
+        "DBNAME": "position",
+        "DBPASSWORD": "UPgrade2023**"
       }
     },
     "Docker": {

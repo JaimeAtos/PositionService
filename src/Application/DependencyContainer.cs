@@ -9,7 +9,7 @@ public static class DependencyContainer
     public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
         return services;
     }
 }
