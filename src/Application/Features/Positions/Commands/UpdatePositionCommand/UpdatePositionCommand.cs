@@ -11,7 +11,7 @@ public class UpdatePositionCommand : IRequest<Response<bool>>
 {
     public Guid Id { get; set; }
     public string? Description { get; set; }
-    public string? ClientDescription { get; set; }
+    public string? PositionDescription { get; set; }
     public string? PositionLevel { get; set; }
 }
 

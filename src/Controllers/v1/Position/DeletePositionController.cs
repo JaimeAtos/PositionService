@@ -9,19 +9,36 @@ namespace Controllers.v1.Position;
 public class DeletePositionController : BaseApiController
 {
 	[HttpDelete]
-	public Task<IActionResult> DeletePosition(DeletePositionCommand command,
+	public Task<IActionResult> DeletePosition(DeletePositionCommandById commandById,
 		CancellationToken cancellationToken = default)
 	{
-		if (command is null)
+		if (commandById is null)
 			throw new ApiException("Body request is empty");
 
-		return ProcessDeletePosition(command, cancellationToken);
+		return ProcessDeletePosition(commandById, cancellationToken);
 	}
-
-	private async Task<IActionResult> ProcessDeletePosition(DeletePositionCommand command,
+	
+	[HttpDelete]
+	public Task<IActionResult> DeletePositionByClientId(DeletePositionCommandByClientId commandById,
 		CancellationToken cancellationToken = default)
 	{
-		await Mediator.Send(command, cancellationToken);
+		if (commandById is null)
+			throw new ApiException("Body request is empty");
+
+		return ProcessDeletePositionByClientId(commandById, cancellationToken);
+	}
+
+	private async Task<IActionResult> ProcessDeletePosition(DeletePositionCommandById commandById,
+		CancellationToken cancellationToken = default)
+	{
+		await Mediator.Send(commandById, cancellationToken);
+		return NoContent();
+	}
+	
+	private async Task<IActionResult> ProcessDeletePositionByClientId(DeletePositionCommandByClientId commandById,
+		CancellationToken cancellationToken = default)
+	{
+		await Mediator.Send(commandById, cancellationToken);
 		return NoContent();
 	}
 
