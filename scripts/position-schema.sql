@@ -1,4 +1,4 @@
-CREATE TYPE SkillType AS ENUM ('0', '1', '2', '3');
+CREATE TYPE SkillType AS ENUM ('0', '1', '2');
 
 CREATE TABLE IF NOT EXISTS "Position"
 (
