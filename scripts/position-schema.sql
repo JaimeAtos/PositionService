@@ -3,11 +3,11 @@ CREATE TYPE SkillType AS ENUM ('0', '1', '2', '3');
 CREATE TABLE IF NOT EXISTS "Position"
 (
     "Id"                UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"     UUID         NOT NULL UNIQUE, 
+    "UserCreatorId"     UUID         NOT NULL UNIQUE,
     "CreationTime"      DATE         NOT NULL,
     "State"             BOOL         NOT NULL,
     "UserModifierId"    UUID         NOT NULL UNIQUE,
-    "DateLastModify"  DATE         NOT NULL,
+    "DateLastModify"    DATE         NOT NULL,
     "Description"       VARCHAR(500) NOT NULL,
     "ClientId"          UUID         NOT NULL,
     "ClientDescription" VARCHAR(200) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
     "CreationTime"      DATE        NOT NULL,
     "State"             BOOL        NOT NULL,
     "UserModifierId"    UUID        NOT NULL UNIQUE,
-    "DateLastModify"  DATE        NOT NULL,
+    "DateLastModify"    DATE        NOT NULL,
     "SkillId"           UUID        NOT NULL,
     "PositionId"        UUID        NOT NULL,
     "SkillName"         VARCHAR(80) NOT NULL,
@@ -33,11 +33,11 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
 CREATE TABLE IF NOT EXISTS "ResourcePosition"
 (
     "Id"                  UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"       UUID         NOT NULL UNIQUE, 
+    "UserCreatorId"       UUID         NOT NULL UNIQUE,
     "CreationTime"        DATE         NOT NULL,
     "State"               BOOL         NOT NULL,
     "UserModifierId"      UUID         NOT NULL UNIQUE,
-    "DateLastModify"    DATE         NOT NULL,
+    "DateLastModify"      DATE         NOT NULL,
     "ResourceId"          UUID         NOT NULL,
     "PositionId"          UUID         NOT NULL,
     "PercentMathPosition" SMALLINT     NOT NULL,

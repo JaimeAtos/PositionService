@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vps+KEyvBvMkwJiRiAx3vg7JNOltSMs87F6XjJbZ1YLoRdbQmSwpLZvpfj+hX9aTjUvLzE56S/Iy/jx4jUzKTg==",
+  "dgSpecHash": "H7ixAYOnNaGoGNLndrAj3RSVC9+VQeEjmoD1TB9HMwBZZWvIAL9gyRbaiZPU2RrJa/LNq4IN5wRw+U3n1S87uw==",
   "success": true,
-  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
+  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
   "expectedPackageFiles": [
     "/home/thend/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/home/thend/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

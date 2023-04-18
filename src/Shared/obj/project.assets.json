@@ -207,11 +207,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Shared/Shared.csproj",
+      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Shared/Shared.csproj",
       "projectName": "Shared",
-      "projectPath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Shared/Shared.csproj",
+      "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Shared/Shared.csproj",
       "packagesPath": "/home/thend/.nuget/packages/",
-      "outputPath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Shared/obj/",
+      "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Shared/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/thend/.nuget/NuGet/NuGet.Config"
@@ -227,8 +227,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/media/thend/DATA/Development/RiderProjects/PositionService/src/Core/Domain/Domain.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Core/Domain/Domain.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj"
             }
           }
         }

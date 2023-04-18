@@ -7674,11 +7674,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
+      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
       "projectName": "PositionApplicationTests",
-      "projectPath": "/media/thend/DATA/Development/RiderProjects/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
+      "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
       "packagesPath": "/home/thend/.nuget/packages/",
-      "outputPath": "/media/thend/DATA/Development/RiderProjects/PositionService/tests/PositionApplicationTests/obj/",
+      "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/thend/.nuget/NuGet/NuGet.Config"
@@ -7694,11 +7694,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/media/thend/DATA/Development/RiderProjects/PositionService/src/Application/Application.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Application/Application.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Application/Application.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Application/Application.csproj"
             },
-            "/media/thend/DATA/Development/RiderProjects/PositionService/src/Controllers/Controllers.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Controllers/Controllers.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Controllers/Controllers.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Controllers/Controllers.csproj"
             }
           }
         }

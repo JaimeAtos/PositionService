@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qeGDUe0XxQpZiE99d7GZzIA00OTlrYiKrEQfnEZt60VrPfLwULfEjxFuOLSvQNKEuN6yVZTxi8Wc4qO9Z0kyWQ==",
+  "dgSpecHash": "M+0ZW2ewxer8/m4rMEwlcQlKrEhPJSUyWAYmtvB6rR8Ylq5pyl58CvGayDWtu7jVQ5o3yTdJEDugKoV6w4LYtA==",
   "success": true,
-  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Infraestructure/Persistence/Persistence.csproj",
+  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Infraestructure/Persistence/Persistence.csproj",
   "expectedPackageFiles": [
     "/home/thend/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/home/thend/.nuget/packages/microsoft.extensions.configuration/5.0.0/microsoft.extensions.configuration.5.0.0.nupkg.sha512",

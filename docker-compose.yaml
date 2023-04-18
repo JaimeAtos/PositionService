@@ -1,7 +1,7 @@
 services:
-  postgres-position:
+  talentpostgres:
     image: postgres:15.2
-    container_name: postgresql-position
+    container_name: postgresql
     restart: always
     environment:
       - POSTGRES_PASSWORD=${DBPASSWORD}
@@ -12,15 +12,14 @@ services:
     expose:
       - 5432
     volumes:
-      - ./postgresql/position/data:/var/lib/postgresql/data
       - ./scripts/schema.sql:/docker-entrypoint-initdb.d/position-schema.sql
     networks:
-      positionnetwork:
+      talentnetwork:
         ipv4_address: 172.18.0.2
 
 networks:
-  positionnetwork:
-    name: "positionnetwork"
+  talentnetwork:
+    name: "talentnetwork"
     ipam:
       driver: default
       config:

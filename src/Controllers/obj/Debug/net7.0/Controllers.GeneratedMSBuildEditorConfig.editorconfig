@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Controllers
-build_property.ProjectDir = /media/thend/DATA/Development/RiderProjects/PositionService/src/Controllers/
+build_property.ProjectDir = /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Controllers/

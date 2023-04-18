@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2kn/i+wmlph8r6e51avR3TZ8royLSwzAzntAJ+6c4qxEVyhj5br9QZ2D0y2BccFxPZ2RtbSCOK3/gB85jXHwCg==",
+  "dgSpecHash": "Rg8d44NWOMCtwlvV7HjzVd400xUucOd45XHoKEDTbdwPvu3VEw1BvckaYIZmYI23tqTkXlharnxSil1l7ojcVQ==",
   "success": true,
-  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Shared/Shared.csproj",
+  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Shared/Shared.csproj",
   "expectedPackageFiles": [
     "/home/thend/.nuget/packages/microsoft.extensions.configuration/5.0.0/microsoft.extensions.configuration.5.0.0.nupkg.sha512",
     "/home/thend/.nuget/packages/microsoft.extensions.configuration.abstractions/5.0.0/microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
