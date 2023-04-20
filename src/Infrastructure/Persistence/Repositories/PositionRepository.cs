@@ -88,7 +88,6 @@ public class PositionRepository : IPositionRepository
 	{
 		var task = await Task.Run(async () =>
 		{
-
 			var query =
 				"""
 				SELECT "Id",
@@ -104,15 +103,14 @@ public class PositionRepository : IPositionRepository
 				OFFSET @Offset
 				FETCH NEXT @PageSize ROWS ONLY;
 				""";
-			
+
 			var sb = new SqlBuilder();
 			var template = sb.AddTemplate(query);
 
-
-			foreach (var fields in param.Select(fields => fields.Key))
+			foreach (var key in param.Select(fields => fields.Key))
 			{
 				sb.Where($$"""
-									"{{fields}}" = @{{fields}}
+									"{{key}}" = @{{key}}
 								""");
 			}
 
@@ -120,7 +118,7 @@ public class PositionRepository : IPositionRepository
 			param.Add("PageSize", offset);
 
 			var parameters = new DynamicParameters(param);
-			
+
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<Position>(template.RawSql, parameters);
 

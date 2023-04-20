@@ -109,18 +109,27 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "PercentMatchPosition",
 				       "IsDefault",
 				       "RomaId",
-				       "ResourceName" FROM "ResourcePosition" WHERE "State" = @IsActive
-				                                          ORDER BY "CreationTime" DESC 
-				                                          OFFSET @Offset
-				                                          FETCH NEXT @PageSize ROWS ONLY;
+				       "ResourceName" FROM "ResourcePosition" /**where**/
+				                      OFFSET @Offset
+				                          FETCH NEXT @PageSize ROWS ONLY;
 				""";
-			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<ResourcePosition>(query, new
+			var sb = new SqlBuilder();
+			var template = sb.AddTemplate(query);
+
+			foreach (var key in param.Select(fields => fields.Key))
 			{
-				Offset = (page < 1 ? 1 : page - 1) * offset,
-				PageSize = offset,
-				IsActive = true
-			});
+				sb.Where($$"""
+								{{key}} = @{{key}}
+							""");
+			}
+
+			param.Add("Offset", (page < 1 ? 0 : page - 1) * offset);
+			param.Add("Page", offset);
+			
+			var parameters = new DynamicParameters(param);
+			
+			using var con = _dbContext.CreateConnection();
+			var result = await con.QueryAsync<ResourcePosition>(template.RawSql, parameters);
 			return result;
 		}, cancellationToken);
 
@@ -147,7 +156,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "ResourceName" FROM "ResourcePosition" WHERE "Id" = @Id;
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryFirstOrDefaultAsync<ResourcePosition>(query, 
+			var result = await con.QueryFirstOrDefaultAsync<ResourcePosition>(query,
 				new { Id = id });
 			return result;
 		}, cancellationToken);

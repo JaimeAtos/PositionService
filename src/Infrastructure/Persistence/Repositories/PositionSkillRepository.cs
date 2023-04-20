@@ -106,18 +106,25 @@ public class PositionSkillRepository : IPositionSkillRepository
 				       "SkillName",
 				       "MinToAccept",
 				       "PositionSkillType"
-				FROM "PositionSkill" WHERE "State" = @IsActive
-				                     ORDER BY "CreationTime" DESC
+				FROM "PositionSkill" /**where**/
 				                     OFFSET @Offset
 				                     FETCH NEXT @PageSize ROWS ONLY;
 				""";
-			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<PositionSkill>(query, new
+			var sb = new SqlBuilder();
+			var template = sb.AddTemplate(query);
+			
+			foreach (var key in param.Select(field => field.Key))
 			{
-				Offset = (page < 1? 0 : page - 1) * offset,
-				PageSize = offset,
-				IsActive = true
-			});
+				sb.Where($$"""
+							{{key}} = @{{key}}
+						""");
+			}
+			param.Add("Offset", (page < 1? 0 : page - 1) * offset);
+			param.Add("PageSize", offset);
+			
+			var parameters = new DynamicParameters(param);
+			using var con = _dbContext.CreateConnection();
+			var result = await con.QueryAsync<PositionSkill>(template.RawSql, parameters);
 			return result;
 		}, cancellationToken);
 
