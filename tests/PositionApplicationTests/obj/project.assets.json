@@ -7660,13 +7660,13 @@
     },
     "Application/1.0.0": {
       "type": "project",
-      "path": "../../src/Application/Application.csproj",
-      "msbuildProject": "../../src/Application/Application.csproj"
+      "path": "../../src/Core/Application/Application.csproj",
+      "msbuildProject": "../../src/Core/Application/Application.csproj"
     },
     "Controllers/1.0.0": {
       "type": "project",
-      "path": "../../src/Controllers/Controllers.csproj",
-      "msbuildProject": "../../src/Controllers/Controllers.csproj"
+      "path": "../../src/Presentation/Controllers/Controllers.csproj",
+      "msbuildProject": "../../src/Presentation/Controllers/Controllers.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",
@@ -7675,8 +7675,8 @@
     },
     "Persistence/1.0.0": {
       "type": "project",
-      "path": "../../src/Infraestructure/Persistence/Persistence.csproj",
-      "msbuildProject": "../../src/Infraestructure/Persistence/Persistence.csproj"
+      "path": "../../src/Infrastructure/Persistence/Persistence.csproj",
+      "msbuildProject": "../../src/Infrastructure/Persistence/Persistence.csproj"
     },
     "Shared/1.0.0": {
       "type": "project",
@@ -7721,11 +7721,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Application/Application.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Application/Application.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Application/Application.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Application/Application.csproj"
             },
-            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Controllers/Controllers.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Controllers/Controllers.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Presentation/Controllers/Controllers.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Presentation/Controllers/Controllers.csproj"
             }
           }
         }
