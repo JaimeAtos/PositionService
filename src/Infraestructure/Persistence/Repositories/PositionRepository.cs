@@ -86,10 +86,12 @@ public class PositionRepository : IPositionRepository
 	}
 
 	public async Task<IEnumerable<Position>> GetAllAsync(int page = 0, int offset = 10,
+		Dictionary<string, object>? param = null,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
 		{
+			using var con = _dbContext.CreateConnection();
 			var query =
 				"""
 				SELECT "Id",
@@ -102,18 +104,30 @@ public class PositionRepository : IPositionRepository
 				       "ClientId",
 				       "ClientDescription",
 				       "PositionLevel"
-				FROM "Position" WHERE "State" = @IsActive
-				                ORDER BY "CreationTime" DESC
+				FROM "Position" /**where**/ ORDER BY "CreationTime" DESC
 				                OFFSET @Offset
 				                FETCH NEXT @PageSize ROWS ONLY;
 				""";
-			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryAsync<Position>(query, new
+			var sb = new SqlBuilder();
+			var template = sb.AddTemplate(query);
+
+
+			if (param != null)
+				foreach (var fields in param)
+				{
+					sb.Where($"{fields.Key} LIKE @{fields.Key}", fields.Value);
+					Console.WriteLine(fields.Key);
+				}
+
+			sb.Where("State = @State", true);
+
+			var result = await con.QueryAsync<Position>(template.RawSql, new
 			{
 				Offset = (page < 1 ? 0 : page - 1) * offset,
 				PageSize = offset,
-				IsActive = true
+				template.Parameters
 			});
+
 			return result;
 		}, cancellationToken);
 

@@ -15,6 +15,18 @@
           }
         }
       },
+      "Dapper.SqlBuilder/2.0.78": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.78"
+        },
+        "compile": {
+          "lib/net5.0/Dapper.SqlBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Dapper.SqlBuilder.dll": {}
+        }
+      },
       "Microsoft.Extensions.Configuration/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -168,6 +180,20 @@
         "lib/net5.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Dapper.SqlBuilder/2.0.78": {
+      "sha512": "07LHm+/YOLyFieN51mjwrrVPKX3q0k7RxG+8zi/5MKjy7mWid/DRlRFNgvcCffEcjLjkbgEdITHkKTKSxSmPnw==",
+      "type": "package",
+      "path": "dapper.sqlbuilder/2.0.78",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dapper.sqlbuilder.2.0.78.nupkg.sha512",
+        "dapper.sqlbuilder.nuspec",
+        "lib/net461/Dapper.SqlBuilder.dll",
+        "lib/net5.0/Dapper.SqlBuilder.dll",
+        "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
     "Microsoft.Extensions.Configuration/5.0.0": {
@@ -357,6 +383,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Dapper >= 2.0.123",
+      "Dapper.SqlBuilder >= 2.0.78",
       "Domain >= 1.0.0",
       "Npgsql >= 7.0.2",
       "Shared >= 1.0.0"
@@ -410,6 +437,10 @@
           "Dapper": {
             "target": "Package",
             "version": "[2.0.123, )"
+          },
+          "Dapper.SqlBuilder": {
+            "target": "Package",
+            "version": "[2.0.78, )"
           },
           "Npgsql": {
             "target": "Package",

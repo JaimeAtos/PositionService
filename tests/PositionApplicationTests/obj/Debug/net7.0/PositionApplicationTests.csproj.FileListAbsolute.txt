@@ -240,3 +240,4 @@
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.genruntimeconfig.cache
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/ref/PositionApplicationTests.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Dapper.SqlBuilder.dll

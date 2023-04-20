@@ -167,3 +167,4 @@ C:/Users/a875671/source/repos/PositionService/PositionServiceApi/obj/Debug/net7.
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/PositionServiceApi/obj/Debug/net7.0/PositionServiceApi.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/PositionServiceApi/obj/Debug/net7.0/PositionServiceApi.genruntimeconfig.cache
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/PositionServiceApi/obj/Debug/net7.0/ref/PositionServiceApi.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/PositionServiceApi/bin/Debug/net7.0/Dapper.SqlBuilder.dll

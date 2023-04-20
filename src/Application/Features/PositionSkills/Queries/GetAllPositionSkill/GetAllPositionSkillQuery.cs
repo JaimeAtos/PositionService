@@ -44,7 +44,7 @@ public class
 	private async Task<PagedResponse<List<PositionSkillDto>>> ProcessHandle(GetAllPositionSkillQuery request,
 		CancellationToken cancellationToken = default)
 	{
-		var record = await _positionSkillRepository.GetAllAsync(request.PageNumber, request.PageSize, cancellationToken);
+		var record = await _positionSkillRepository.GetAllAsync(request.PageNumber, request.PageSize, null, cancellationToken);
 		var recordDto = _mapper.Map<List<PositionSkillDto>>(record);
 
 		return new PagedResponse<List<PositionSkillDto>>(recordDto, request.PageNumber, request.PageSize);

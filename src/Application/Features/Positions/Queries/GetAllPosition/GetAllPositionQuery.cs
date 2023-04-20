@@ -12,10 +12,12 @@ public class GetAllPositionQuery : IRequest<PagedResponse<List<PositionDto>>>
 	public int PageNumber { get; set; }
 	public int PageSize { get; set; }
 	public Guid Id { get; set; }
-	public bool State { get; set; }
     public string? Description { get; set; }
     public Guid ClientId { get; set; }
     public string? ClientDescription { get; set; }
+	public IEnumerable<PositionSkillDto>? MinToHave { get; set; }
+	public IEnumerable<PositionSkillDto>? MustToHave { get; set; }
+	public IEnumerable<PositionSkillDto>? PlusToHave { get; set; }
 }
 
 public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, PagedResponse<List<PositionDto>>>
@@ -38,7 +40,7 @@ public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, P
 
 	private async Task<PagedResponse<List<PositionDto>>> ProcessHandle(GetAllPositionQuery request, CancellationToken cancellationToken = default)
 	{
-		var record = await _positionRepository.GetAllAsync(request.PageNumber, request.PageSize, cancellationToken);
+		var record = await _positionRepository.GetAllAsync(request.PageNumber, request.PageSize, null, cancellationToken);
 		var recordDto = _mapper.Map<List<PositionDto>>(record);
 
 		return new PagedResponse<List<PositionDto>>(recordDto, request.PageNumber, request.PageSize);

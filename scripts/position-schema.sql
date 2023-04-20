@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS "Position"
     "Description"       VARCHAR(500) NOT NULL,
     "ClientId"          UUID         NOT NULL,
     "ClientDescription" VARCHAR(200) NOT NULL,
-    "PositionLevel"     VARCHAR(50)  NOT NULL
+    "PositionLevel"     VARCHAR(50)  NOT NULL,
+    UNIQUE ("Description", "PositionLevel")
 );
 
 CREATE TABLE IF NOT EXISTS "PositionSkill"
@@ -25,24 +26,25 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
     "SkillId"           UUID        NOT NULL,
     "PositionId"        UUID        NOT NULL,
     "SkillName"         VARCHAR(80) NOT NULL,
-    "MinToAccept"       SMALLINT    NOT NULL,
+    "MinToAccept"       SMALLINT    NOT NULL
+        CONSTRAINT "MinToAccept_CHECK" CHECK ("MinToAccept" >= 0 AND "MinToAccept" <= 100),
     "PositionSkillType" SkillType   NOT NULL
 
 );
 
 CREATE TABLE IF NOT EXISTS "ResourcePosition"
 (
-    "Id"                  UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"       UUID         NOT NULL UNIQUE,
-    "CreationTime"        DATE         NOT NULL,
-    "State"               BOOL         NOT NULL,
-    "UserModifierId"      UUID         NOT NULL UNIQUE,
-    "DateLastModify"      DATE         NOT NULL,
-    "ResourceId"          UUID         NOT NULL,
-    "PositionId"          UUID         NOT NULL,
-    "PercentMathPosition" SMALLINT     NOT NULL,
-    "IsDefault"           BOOL         NOT NULL,
-    "ResourceName"        VARCHAR(100) NOT NULL
+    "Id"                   UUID         NOT NULL DEFAULT gen_random_uuid(),
+    "UserCreatorId"        UUID         NOT NULL UNIQUE,
+    "CreationTime"         DATE         NOT NULL,
+    "State"                BOOL         NOT NULL,
+    "UserModifierId"       UUID         NOT NULL UNIQUE,
+    "DateLastModify"       DATE         NOT NULL,
+    "ResourceId"           UUID         NOT NULL,
+    "PositionId"           UUID         NOT NULL,
+    "PercentMatchPosition" SMALLINT     NOT NULL,
+    "IsDefault"            BOOL         NOT NULL,
+    "ResourceName"         VARCHAR(100) NOT NULL
 );
 
 ALTER TABLE "Position"

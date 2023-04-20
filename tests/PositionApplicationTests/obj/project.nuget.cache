@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H7ixAYOnNaGoGNLndrAj3RSVC9+VQeEjmoD1TB9HMwBZZWvIAL9gyRbaiZPU2RrJa/LNq4IN5wRw+U3n1S87uw==",
+  "dgSpecHash": "h0flWnEF0t9HWTMLWacL5OSZ4Z3O2KLRxprCpTIjwOKDc2aEAaynKXaoNxsnW+UDaYeM2F6pQlAuDkOseqZ/uA==",
   "success": true,
   "projectFilePath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/PositionApplicationTests.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "/home/thend/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/home/thend/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
     "/home/thend/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
+    "/home/thend/.nuget/packages/dapper.sqlbuilder/2.0.78/dapper.sqlbuilder.2.0.78.nupkg.sha512",
     "/home/thend/.nuget/packages/mediatr/12.0.1/mediatr.12.0.1.nupkg.sha512",
     "/home/thend/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/thend/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
