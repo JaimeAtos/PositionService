@@ -88,7 +88,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page = 0, int offset = 10, Dictionary<string, object>? param = null,
+	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page, int offset, Dictionary<string, object> param,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>

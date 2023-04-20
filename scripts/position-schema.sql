@@ -2,17 +2,15 @@ CREATE TYPE SkillType AS ENUM ('0', '1', '2');
 
 CREATE TABLE IF NOT EXISTS "Position"
 (
-    "Id"                UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"     UUID         NOT NULL UNIQUE,
-    "CreationTime"      DATE         NOT NULL,
-    "State"             BOOL         NOT NULL,
-    "UserModifierId"    UUID         NOT NULL UNIQUE,
-    "DateLastModify"    DATE         NOT NULL,
-    "Description"       VARCHAR(500) NOT NULL,
-    "ClientId"          UUID         NOT NULL,
-    "ClientDescription" VARCHAR(200) NOT NULL,
-    "PositionLevel"     VARCHAR(50)  NOT NULL,
-    UNIQUE ("Description", "PositionLevel")
+    "Id"                      UUID         NOT NULL DEFAULT gen_random_uuid(),
+    "UserCreatorId"           UUID         NOT NULL UNIQUE,
+    "CreationTime"            DATE         NOT NULL,
+    "State"                   BOOL         NOT NULL,
+    "UserModifierId"          UUID         NOT NULL UNIQUE,
+    "DateLastModify"          DATE         NOT NULL,
+    "Description"             VARCHAR(500) NOT NULL,
+    "CatalogLevelDescription" VARCHAR(50)  NOT NULL,
+    "CatalogLevelId"          UUID         NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "PositionSkill"
@@ -40,11 +38,12 @@ CREATE TABLE IF NOT EXISTS "ResourcePosition"
     "State"                BOOL         NOT NULL,
     "UserModifierId"       UUID         NOT NULL UNIQUE,
     "DateLastModify"       DATE         NOT NULL,
-    "ResourceId"           UUID         NOT NULL,
-    "PositionId"           UUID         NOT NULL,
     "PercentMatchPosition" SMALLINT     NOT NULL,
     "IsDefault"            BOOL         NOT NULL,
-    "ResourceName"         VARCHAR(100) NOT NULL
+    "ResourceName"         VARCHAR(100) NOT NULL,
+    "ResourceId"           UUID         NOT NULL,
+    "PositionId"           UUID         NOT NULL,
+    "RomaId"               VARCHAR(100) NOT NULL UNIQUE
 );
 
 ALTER TABLE "Position"

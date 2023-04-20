@@ -27,9 +27,8 @@ public class PositionRepository : IPositionRepository
 					 "DateLastModify",
 					 "State",
 					 "Description",
-					 "ClientId",
-					 "ClientDescription",
-					 "PositionLevel")
+					 "CatalogLevelDescription",
+					 "CatalogLevelId")
 				VALUES
 					(@UserCreatorId,
 					 @CreationTIme,
@@ -37,9 +36,8 @@ public class PositionRepository : IPositionRepository
 					 @DateLastModified,
 					 @State,
 					 @Description,
-					 @ClientId,
-					 @ClientDescription,
-					 @PositionLevel)
+					 @CatalogLevelDescription,
+					 @CatalogLevelId)
 				RETURNING "Id";
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -52,9 +50,8 @@ public class PositionRepository : IPositionRepository
 					DateLastModified = DateTime.UtcNow,
 					State = true,
 					entity.Description,
-					entity.ClientId,
-					entity.ClientDescription,
-					entity.PositionLevel
+					entity.CatalogLevelDescription,
+					entity.CatalogLevelId
 				});
 			return result;
 		}, cancellationToken);
@@ -101,9 +98,8 @@ public class PositionRepository : IPositionRepository
 				       "UserModifierId",
 				       "DateLastModify",
 				       "Description",
-				       "ClientId",
-				       "ClientDescription",
-				       "PositionLevel"
+				       "CatalogLevelDescription",
+				       "CatalogLevelId"
 				FROM "Position" /**where**/
 				OFFSET @Offset
 				FETCH NEXT @PageSize ROWS ONLY;
@@ -119,14 +115,9 @@ public class PositionRepository : IPositionRepository
 									"{{fields}}" = @{{fields}}
 								""");
 			}
-			
-			sb.Where("""
-							"State" = @State
-						""", new { State = true });
 
 			param.Add("Offset", (page < 1 ? 0 : page - 1) * offset);
 			param.Add("PageSize", offset);
-			param.Add("State", true);
 
 			var parameters = new DynamicParameters(param);
 			
@@ -152,9 +143,8 @@ public class PositionRepository : IPositionRepository
 				       "UserModifierId",
 				       "DateLastModify",
 				       "Description",
-				       "ClientId",
-				       "ClientDescription",
-				       "PositionLevel"
+				       "CatalogLevelDescription",
+				       "CatalogLevelId"
 				FROM "Position" WHERE "Id" = @PositionId;
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -175,9 +165,8 @@ public class PositionRepository : IPositionRepository
 				SET "UserModifierId" = @UserModifiedId,
 				    "DateLastModify" = @DateLastModified,
 				    "Description" = @Description,
-				    "ClientId" = @ClientId,
-				    "ClientDescription" = @ClientDescription,
-				    "PositionLevel" = @PositionLevel
+				    "CatalogLevelDescription" = @CatalogLevelDescription,
+				    "CatalogLevelId" = @CatalogLevelId
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -187,9 +176,8 @@ public class PositionRepository : IPositionRepository
 				UserModifiedId = Guid.NewGuid(),
 				DateLastModified = DateTime.UtcNow,
 				entity.Description,
-				entity.ClientId,
-				entity.ClientDescription,
-				entity.PositionLevel
+				entity.CatalogLevelDescription,
+				entity.CatalogLevelId
 			});
 			return result > 0;
 		}, cancellationToken);

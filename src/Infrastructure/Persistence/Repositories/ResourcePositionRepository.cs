@@ -28,9 +28,10 @@ public class ResourcePositionRepository : IResourcePositionRepository
                      "DateLastModify",
                      "ResourceId",
                      "PositionId",
-                     "PercentMathPosition",
+                     "PercentMatchPosition",
                      "IsDefault",
-                     "ResourceName")
+                     "ResourceName",
+                     "RomaId")
                 VALUES
                     (@UserCreatorId,
                      @CreationTime,
@@ -39,9 +40,10 @@ public class ResourcePositionRepository : IResourcePositionRepository
                      @DateLastModify,
                      @ResourceId,
                      @PositionId,
-                     @PercentMathPosition,
+                     @PercentMatchPosition,
                      @IsDefault,
-                     @ResourceName)
+                     @ResourceName,
+                     @RomaId)
                 RETURNING "Id";
                 """;
 			using var con = _dbContext.CreateConnection();
@@ -55,9 +57,10 @@ public class ResourcePositionRepository : IResourcePositionRepository
 					DateLastModify = DateTime.UtcNow,
 					entity.ResourceId,
 					entity.PositionId,
-					entity.PercentMathPosition,
+					PercentMathPosition = entity.PercentMatchPosition,
 					entity.IsDefault,
-					entity.ResourceName
+					entity.ResourceName,
+					entity.RomaId
 				});
 			return result;
 		}, cancellationToken);
@@ -88,7 +91,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(int page = 0, int offset = 10, Dictionary<string, object>? param = null,
+	public async Task<IEnumerable<ResourcePosition>> GetAllAsync(int page, int offset, Dictionary<string, object> param,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
@@ -103,8 +106,9 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "DateLastModify",
 				       "ResourceId",
 				       "PositionId",
-				       "PercentMathPosition",
+				       "PercentMatchPosition",
 				       "IsDefault",
+				       "RomaId",
 				       "ResourceName" FROM "ResourcePosition" WHERE "State" = @IsActive
 				                                          ORDER BY "CreationTime" DESC 
 				                                          OFFSET @Offset
@@ -113,7 +117,7 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			using var con = _dbContext.CreateConnection();
 			var result = await con.QueryAsync<ResourcePosition>(query, new
 			{
-				Offset = (page < 1? 1 : page - 1) * offset,
+				Offset = (page < 1 ? 1 : page - 1) * offset,
 				PageSize = offset,
 				IsActive = true
 			});
@@ -137,12 +141,14 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				       "DateLastModify",
 				       "ResourceId",
 				       "PositionId",
-				       "PercentMathPosition",
+				       "PercentMatchPosition",
 				       "IsDefault",
-				       "ResourceName" FROM "ResourcePosition" WHERE "Id" = @ResourcePositionId;
+				       "RomaId",
+				       "ResourceName" FROM "ResourcePosition" WHERE "Id" = @Id;
 				""";
 			using var con = _dbContext.CreateConnection();
-			var result = await con.QueryFirstOrDefaultAsync<ResourcePosition>(query, new { ResourcePositionId = id });
+			var result = await con.QueryFirstOrDefaultAsync<ResourcePosition>(query, 
+				new { Id = id });
 			return result;
 		}, cancellationToken);
 
@@ -158,9 +164,10 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				UPDATE "ResourcePosition"
 				SET "DateLastModify" = @DateLastModify,
 					"UserModifierId" = @UserModifierId,
-					"PercentMathPosition" = @PercentMathPosition,
+					"PercentMatchPosition" = @PercentMatchPosition,
 				    "IsDefault" = @IsDefault,
-				    "ResourceName" = @ResourceName
+				    "ResourceName" = @ResourceName,
+				    "RomaId" = @RomaId
 				WHERE "Id" = @Id;
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -169,9 +176,10 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				Id = id,
 				DateLastModify = DateTime.UtcNow,
 				UserModifierId = Guid.NewGuid(),
-				entity.PercentMathPosition,
+				PercentMathPosition = entity.PercentMatchPosition,
 				entity.IsDefault,
 				entity.ResourceName,
+				entity.RomaId
 			});
 			return result > 0;
 		}, cancellationToken);

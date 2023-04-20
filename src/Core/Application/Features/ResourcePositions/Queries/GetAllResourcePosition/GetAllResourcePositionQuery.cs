@@ -40,7 +40,7 @@ public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResour
 
     private async Task<PagedResponse<List<ResourcePositionDto>>> ProcessHandle(GetAllResourcePositionQuery request, CancellationToken cancellationToken)
     {
-        var record = await _resourcePositionRepository.GetAllAsync(request.PageNumber, request.PageSize, null, cancellationToken);
+        var record = await _resourcePositionRepository.GetAllAsync(request.PageNumber, request.PageSize, new Dictionary<string, object>(), cancellationToken);
         var recordDto = _mapper.Map<List<ResourcePositionDto>>(record)
             .Where(r => r.PercentMathPosition > 70)
             .ToList();

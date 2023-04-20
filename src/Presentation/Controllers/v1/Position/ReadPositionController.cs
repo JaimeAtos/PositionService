@@ -26,6 +26,7 @@ public class ReadPositionController : BaseApiController
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
+			State = filters.State,
 			ClientDescription = filters.ClientDescription,
 			Description = filters.Description,
 			ClientId = filters.ClientId,
