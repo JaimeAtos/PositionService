@@ -85,13 +85,13 @@ public class PositionRepository : IPositionRepository
 		return task;
 	}
 
-	public async Task<IEnumerable<Position>> GetAllAsync(int page = 0, int offset = 10,
-		Dictionary<string, object>? param = null,
+	public async Task<IEnumerable<Position>> GetAllAsync(int page, int offset,
+		Dictionary<string, object> param,
 		CancellationToken cancellationToken = default)
 	{
 		var task = await Task.Run(async () =>
 		{
-			using var con = _dbContext.CreateConnection();
+
 			var query =
 				"""
 				SELECT "Id",
@@ -104,29 +104,34 @@ public class PositionRepository : IPositionRepository
 				       "ClientId",
 				       "ClientDescription",
 				       "PositionLevel"
-				FROM "Position" /**where**/ ORDER BY "CreationTime" DESC
-				                OFFSET @Offset
-				                FETCH NEXT @PageSize ROWS ONLY;
+				FROM "Position" /**where**/
+				OFFSET @Offset
+				FETCH NEXT @PageSize ROWS ONLY;
 				""";
+			
 			var sb = new SqlBuilder();
 			var template = sb.AddTemplate(query);
 
 
-			if (param != null)
-				foreach (var fields in param)
-				{
-					sb.Where($"{fields.Key} LIKE @{fields.Key}", fields.Value);
-					Console.WriteLine(fields.Key);
-				}
-
-			sb.Where("State = @State", true);
-
-			var result = await con.QueryAsync<Position>(template.RawSql, new
+			foreach (var fields in param.Select(fields => fields.Key))
 			{
-				Offset = (page < 1 ? 0 : page - 1) * offset,
-				PageSize = offset,
-				template.Parameters
-			});
+				sb.Where($$"""
+									"{{fields}}" = @{{fields}}
+								""");
+			}
+			
+			sb.Where("""
+							"State" = @State
+						""", new { State = true });
+
+			param.Add("Offset", (page < 1 ? 0 : page - 1) * offset);
+			param.Add("PageSize", offset);
+			param.Add("State", true);
+
+			var parameters = new DynamicParameters(param);
+			
+			using var con = _dbContext.CreateConnection();
+			var result = await con.QueryAsync<Position>(template.RawSql, parameters);
 
 			return result;
 		}, cancellationToken);

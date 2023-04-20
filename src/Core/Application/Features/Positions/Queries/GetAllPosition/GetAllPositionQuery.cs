@@ -15,9 +15,7 @@ public class GetAllPositionQuery : IRequest<PagedResponse<List<PositionDto>>>
     public string? Description { get; set; }
     public Guid ClientId { get; set; }
     public string? ClientDescription { get; set; }
-	public IEnumerable<PositionSkillDto>? MinToHave { get; set; }
-	public IEnumerable<PositionSkillDto>? MustToHave { get; set; }
-	public IEnumerable<PositionSkillDto>? PlusToHave { get; set; }
+    public string? PositionLevel { get; set; }
 }
 
 public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, PagedResponse<List<PositionDto>>>
@@ -31,19 +29,39 @@ public class GetALlPositionQueryHandler : IRequestHandler<GetAllPositionQuery, P
 		_mapper = mapper;
 	}
 
-	public Task<PagedResponse<List<PositionDto>>> Handle(GetAllPositionQuery request, CancellationToken cancellationToken)
+	public Task<PagedResponse<List<PositionDto>>> Handle(GetAllPositionQuery request,
+		CancellationToken cancellationToken)
 	{
 		if (request is null)
 			throw new ApiException("Request is empty");
 		return ProcessHandle(request, cancellationToken);
 	}
 
-	private async Task<PagedResponse<List<PositionDto>>> ProcessHandle(GetAllPositionQuery request, CancellationToken cancellationToken = default)
+	private async Task<PagedResponse<List<PositionDto>>> ProcessHandle(GetAllPositionQuery request,
+		CancellationToken cancellationToken = default)
 	{
-		var record = await _positionRepository.GetAllAsync(request.PageNumber, request.PageSize, null, cancellationToken);
+		var filters = GenerateParams(request);
+		var record =
+			await _positionRepository.GetAllAsync(request.PageNumber, request.PageSize, filters, cancellationToken);
 		var recordDto = _mapper.Map<List<PositionDto>>(record);
 
 		return new PagedResponse<List<PositionDto>>(recordDto, request.PageNumber, request.PageSize);
+	}
+	
+	private Dictionary<string, object> GenerateParams(GetAllPositionQuery queryFields)
+	{
+		var filters = new Dictionary<string, object>();
+		
+		if (queryFields.PositionLevel is not null)
+			filters.Add("PositionLevel", queryFields.PositionLevel);
+		
+		if (queryFields.Description is not null)
+			filters.Add("Description", queryFields.Description);
+		
+		if (queryFields.ClientDescription is not null)
+			filters.Add("ClientDescription", queryFields.ClientDescription);
+
+		return filters;
 	}
 
 }

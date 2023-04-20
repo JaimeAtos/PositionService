@@ -20,12 +20,16 @@ public class ReadPositionController : BaseApiController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAllPositions([FromQuery] RequestParameter filters)
+	public async Task<IActionResult> GetAllPositions([FromQuery] PositionParameters filters)
 	{
 		return Ok(await Mediator.Send(new GetAllPositionQuery
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
+			ClientDescription = filters.ClientDescription,
+			Description = filters.Description,
+			ClientId = filters.ClientId,
+			PositionLevel = filters.PositionLevel
 		}));
 	}
 

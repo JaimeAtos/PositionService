@@ -6,24 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 namespace Controllers.v1.Position;
 
 [ApiVersion("1.0")]
-public class DeletePositionController : BaseApiController
+public class DeletePositionByClient : BaseApiController
 {
-	public DeletePositionController(IMediator mediator) : base(mediator)
+	public DeletePositionByClient(IMediator mediator) : base(mediator)
 	{
 	}
 	
 	[HttpDelete]
-	public Task<IActionResult> DeletePosition(DeletePositionCommandById commandById,
+	public Task<IActionResult> DeletePositionByClientId(DeletePositionCommandByClientId commandById,
 		CancellationToken cancellationToken = default)
 	{
 		if (commandById is null)
 			throw new ApiException("Body request is empty");
 
-		return ProcessDeletePosition(commandById, cancellationToken);
+		return ProcessDeletePositionByClientId(commandById, cancellationToken);
 	}
 	
-
-	private async Task<IActionResult> ProcessDeletePosition(DeletePositionCommandById commandById,
+	private async Task<IActionResult> ProcessDeletePositionByClientId(DeletePositionCommandByClientId commandById,
 		CancellationToken cancellationToken = default)
 	{
 		await Mediator.Send(commandById, cancellationToken);

@@ -223,12 +223,10 @@
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Controllers.dll
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Domain.dll
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Persistence.dll
-/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Shared.dll
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Application.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Controllers.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Domain.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Persistence.pdb
-/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Shared.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.csproj.AssemblyReference.cache
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.GeneratedMSBuildEditorConfig.editorconfig
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.AssemblyInfoInputs.cache
@@ -241,3 +239,5 @@
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/PositionApplicationTests.genruntimeconfig.cache
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/obj/Debug/net7.0/ref/PositionApplicationTests.dll
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Dapper.SqlBuilder.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Shared.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/tests/PositionApplicationTests/bin/Debug/net7.0/Shared.pdb

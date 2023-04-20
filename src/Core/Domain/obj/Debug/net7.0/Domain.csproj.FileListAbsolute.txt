@@ -53,3 +53,7 @@ C:/Users/a875671/source/repos/PositionService/Domain/obj/Debug/net7.0/ref/Domain
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/Debug/net7.0/refint/Domain.dll
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/Debug/net7.0/Domain.pdb
 /media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/Debug/net7.0/ref/Domain.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/bin/Debug/net7.0/Atos.Core.dll
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/bin/Debug/net7.0/Atos.Core.pdb
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/bin/Debug/net7.0/Atos.Core.xml
+/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/Debug/net7.0/Domain.csproj.CopyComplete

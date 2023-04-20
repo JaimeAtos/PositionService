@@ -5,7 +5,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DBHOST": "172.18.0.2",
+        "DBPORT": "5432",
+        "DBUSER": "position",
+        "DBPASSWORD": "UPgrade2023**",
+        "DBNAME": "position"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5017"

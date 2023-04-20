@@ -4,14 +4,14 @@
     "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj": {}
   },
   "projects": {
-    "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj": {
-      "version": "1.0.0",
+    "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj": {
+      "version": "1.0.28",
       "restore": {
-        "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
-        "projectName": "Domain",
-        "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
+        "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj",
+        "projectName": "UPgrade.Microservice.SDK.Core",
+        "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj",
         "packagesPath": "/home/thend/.nuget/packages/",
-        "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/",
+        "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/thend/.nuget/NuGet/NuGet.Config"
@@ -39,11 +39,89 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "UPgrade.Microservice.SDK.Core": {
+            "MediatR": {
               "target": "Package",
-              "version": "[1.0.28, )"
+              "version": "[12.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "coverlet.msbuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/7.0.104/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
+        "packagesPath": "/home/thend/.nuget/packages/",
+        "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/thend/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/home/thend/.nuget/local_source": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj": {
+                "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",

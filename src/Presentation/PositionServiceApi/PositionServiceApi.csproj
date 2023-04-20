@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Shared\Shared.csproj" />
     <ProjectReference Include="..\Controllers\Controllers.csproj" />
   </ItemGroup>
 

@@ -5,9 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="UPgrade.Microservice.SDK.Core" Version="1.0.28" />
+    <ProjectReference Include="..\..\..\..\Atos.Core\src\Atos.Core\Atos.Core.csproj" />
   </ItemGroup>
 
 </Project>
