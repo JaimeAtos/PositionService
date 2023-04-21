@@ -1,3 +1,2 @@
 # PositionService
-A PositionService with Onion architecture
-
+A PositionService with Onion architecture for talent management microservices
