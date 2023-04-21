@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "EX1oxTErb4fhkVuo2yBV8kfVyDiHvlwlC5qwwXDc1Dia1H56WQNdr7PKJXnK2Fe5itUxAts+Q6DpnXuVZ+rhAg==",
+  "dgSpecHash": "Ck0qqSNa96oXY3WLYY+7Wg6lLL/OfNVd7ryqWpAcASpRZAwGLwA0jxYnhq8fVkrA07eSlZfsA8Kjtc2hjdgrHw==",
   "success": true,
-  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/PositionService/src/Core/Domain/Domain.csproj",
+  "projectFilePath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
   "expectedPackageFiles": [
-    "/home/thend/.nuget/packages/microsoft.extensions.configuration/5.0.0/microsoft.extensions.configuration.5.0.0.nupkg.sha512",
-    "/home/thend/.nuget/packages/microsoft.extensions.configuration.abstractions/5.0.0/microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
-    "/home/thend/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
-    "/home/thend/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/mediatr/12.0.1/mediatr.12.0.1.nupkg.sha512",
+    "/home/thend/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.configuration/7.0.0/microsoft.extensions.configuration.7.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/thend/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/thend/.nuget/packages/upgrade.microservice.sdk.core/1.0.28/upgrade.microservice.sdk.core.1.0.28.nupkg.sha512"
   ],
   "logs": []
