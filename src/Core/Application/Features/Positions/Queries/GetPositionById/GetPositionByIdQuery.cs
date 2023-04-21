@@ -25,7 +25,7 @@ public class GetPositionByIdQueryHandler : IRequestHandler<GetPositionByIdQuery,
 
 	public Task<Response<PositionDto>> Handle(GetPositionByIdQuery request, CancellationToken cancellationToken)
 	{
-		if (request == null)
+		if (request is null)
 			throw new ApiException("Request is empty");
 		return ProcessHandle(request, cancellationToken);
 	}

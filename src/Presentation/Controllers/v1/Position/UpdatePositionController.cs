@@ -17,16 +17,14 @@ public class UpdatePositionController : BaseApiController
     public Task<IActionResult> UpdatePosition(UpdatePositionCommand command, CancellationToken cancellationToken = default)
     {
         if (command is null)
-        {
             throw new ApiException("Body request is empty");
-        }
 
         return ProcessUpdatePosition(command, cancellationToken);
     }
+    
     private async Task<IActionResult> ProcessUpdatePosition(UpdatePositionCommand command, CancellationToken cancellationToken = default)
     {
         await Mediator.Send(command, cancellationToken);
         return NoContent();
     }
-
 }

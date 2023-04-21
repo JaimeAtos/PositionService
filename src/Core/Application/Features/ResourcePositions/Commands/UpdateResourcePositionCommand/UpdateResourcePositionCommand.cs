@@ -11,9 +11,10 @@ public class UpdateResourcePositionCommand : IRequest<Response<bool>>
 {
     public Guid ResourceId { get; set; }
     public Guid PositionId { get; set; }
-    public byte PercentMathPosition { get; set; }
+    public byte PercentMatchPosition { get; set; }
     public bool IsDefault { get; set; }
     public string? ResourceName { get; set; }
+    public string? RomaId { get; set; }
 }
 
 public class UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResourcePositionCommand, Response<bool>>

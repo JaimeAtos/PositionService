@@ -1,6 +1,6 @@
-namespace Application.DTOs;
+namespace Application.Parameters;
 
-public class ResourcePositionDto
+public class ResourcePositionParameters : RequestParameter
 {
     public Guid Id { get; set; }
     public bool State { get; set; }

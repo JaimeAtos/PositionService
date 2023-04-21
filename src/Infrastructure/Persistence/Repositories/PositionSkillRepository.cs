@@ -81,7 +81,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 			{
 				Id = id,
 				UserModifierId = Guid.NewGuid(),
-				DateLastModify = DateTime.UtcNow
+				DateLastModify = DateTime.UtcNow,
 			});
 			return result > 0;
 		}, cancellationToken);

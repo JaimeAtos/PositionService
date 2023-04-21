@@ -9,14 +9,14 @@ public static class GetAllPositionExtension
 	{
 		var filters = new Dictionary<string, object>();
 		
-		if (query.PositionLevel is not null)
-			filters.Add("PositionLevel", query.PositionLevel);
+		if (query.CatalogLevelDescription is not null)
+			filters.Add("CatalogLevelDescription", query.CatalogLevelDescription);
 		
 		if (query.Description is not null)
 			filters.Add("Description", query.Description);
 		
-		if (query.ClientDescription is not null)
-			filters.Add("ClientDescription", query.ClientDescription);
+		if (query.CatalogLevelId is not null)
+			filters.Add("CatalogLevelId", query.CatalogLevelId);
 		
 		filters.Add("State", query.State);
 		return filters;

@@ -20,12 +20,17 @@ public class ReadResourcePositionController : BaseApiController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAllResourcePositions([FromQuery] RequestParameter filters)
+	public async Task<IActionResult> GetAllResourcePositions([FromQuery] ResourcePositionParameters filters)
 	{
 		return Ok(await Mediator.Send(new GetAllResourcePositionQuery
 		{
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
+			State = filters.State,
+			ResourceName = filters.ResourceName,
+			PercentMatchPosition = filters.PercentMatchPosition,
+			IsDefault = filters.IsDefault,
+			RomaId = filters.RomaId
 		}));
 	}
 

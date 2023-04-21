@@ -9,11 +9,11 @@ namespace Application.Features.ResourcePositions.Commands.CreateResourcePosition
 
 public class CreateResourcePositionCommand : IRequest<Response<Guid>>
 {
-    public Guid ResourceId { get; set; }
     public Guid PositionId { get; set; }
-    public byte PercentMathPosition { get; set; }
+    public byte PercentMatchPosition { get; set; }
     public bool IsDefault { get; set; }
     public string? ResourceName { get; set; }
+    public string? RomaId { get; set; }
 }
 
 public class CreateResourcePositionCommandHandler : IRequestHandler<CreateResourcePositionCommand, Response<Guid>>

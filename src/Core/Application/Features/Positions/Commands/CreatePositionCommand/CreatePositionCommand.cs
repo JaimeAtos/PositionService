@@ -11,9 +11,8 @@ public class CreatePositionCommand : IRequest<Response<Guid>>
 {
     public Guid Id { get; set; }
     public string? Description { get; set; }
-    public Guid ClientId { get; set; }
-    public string? ClientDescription { get; set; }
-    public string? PositionLevel { get; set; }
+    public string? CatalogLevelDescription { get; set; }
+    public Guid CatalogLevelId { get; set; }
 }
 
 public class CreatePositionCommandHandler : IRequestHandler<CreatePositionCommand, Response<Guid>>

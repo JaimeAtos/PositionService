@@ -29,9 +29,9 @@ public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionS
 	private async Task<Response<bool>> ProcessHandler(DeletePositionSkillCommand request, CancellationToken cancellationToken)
 	{
 		var deleteRecord = await _positionSkillRepository.GetEntityByIdAsync(request.Id, cancellationToken);
-		if (deleteRecord is null) throw new ApiException($"Position with id {request.Id} not found");
-
-		deleteRecord.State = false;
+		if (deleteRecord is null)
+			throw new ApiException($"Position with id {request.Id} not found");
+		
 		var state = await _positionSkillRepository.DeleteAsync(deleteRecord.Id, cancellationToken);
 		return new Response<bool>(state);
 	}

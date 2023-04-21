@@ -28,5 +28,4 @@ public class CreateResourcePositionController : BaseApiController
         var result = await Mediator.Send(command, cancellation);
         return CreatedAtRoute("GetResourcePositionById", new { id = result }, command);
     }
-
 }

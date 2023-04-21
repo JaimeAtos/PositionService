@@ -13,20 +13,20 @@ public class DeletePositionController : BaseApiController
 	}
 	
 	[HttpDelete]
-	public Task<IActionResult> DeletePosition(DeletePositionCommandById commandById,
+	public Task<IActionResult> DeletePosition(DeletePositionCommand command,
 		CancellationToken cancellationToken = default)
 	{
-		if (commandById is null)
+		if (command is null)
 			throw new ApiException("Body request is empty");
 
-		return ProcessDeletePosition(commandById, cancellationToken);
+		return ProcessDeletePosition(command, cancellationToken);
 	}
 	
 
-	private async Task<IActionResult> ProcessDeletePosition(DeletePositionCommandById commandById,
+	private async Task<IActionResult> ProcessDeletePosition(DeletePositionCommand command,
 		CancellationToken cancellationToken = default)
 	{
-		await Mediator.Send(commandById, cancellationToken);
+		await Mediator.Send(command, cancellationToken);
 		return NoContent();
 	}
 }

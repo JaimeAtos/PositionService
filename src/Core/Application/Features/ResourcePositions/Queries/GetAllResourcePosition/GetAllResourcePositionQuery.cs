@@ -1,5 +1,6 @@
 using Application.DTOs;
 using Application.Exceptions;
+using Application.Extensions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Repositories;
@@ -12,12 +13,13 @@ public class GetAllResourcePositionQuery : IRequest<PagedResponse<List<ResourceP
     public int PageNumber { get; set; }
     public int PageSize { get; set; }
     public Guid Id { get; set; }
+    public bool State { get; set; }
     public Guid ResourceId { get; set; }
     public Guid PositionId { get; set; }
-    public byte PercentMathPosition { get; set; }
-    public bool IsDefault { get; set; }
+    public byte? PercentMatchPosition { get; set; }
+    public bool? IsDefault { get; set; }
     public string? ResourceName { get; set; }
-    public PositionDto? Position { get; set; }
+    public string? RomaId { get; set; }
 }
 
 public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResourcePositionQuery, PagedResponse<List<ResourcePositionDto>>>
@@ -40,10 +42,8 @@ public class GetAllResourcePositionQueriesHandler : IRequestHandler<GetAllResour
 
     private async Task<PagedResponse<List<ResourcePositionDto>>> ProcessHandle(GetAllResourcePositionQuery request, CancellationToken cancellationToken)
     {
-        var record = await _resourcePositionRepository.GetAllAsync(request.PageNumber, request.PageSize, new Dictionary<string, object>(), cancellationToken);
-        var recordDto = _mapper.Map<List<ResourcePositionDto>>(record)
-            .Where(r => r.PercentMathPosition > 70)
-            .ToList();
+        var record = await _resourcePositionRepository.GetAllAsync(request.PageNumber, request.PageSize, request.GenerateParameters(), cancellationToken);
+        var recordDto = _mapper.Map<List<ResourcePositionDto>>(record);
         return new PagedResponse<List<ResourcePositionDto>>(recordDto, request.PageNumber, request.PageSize);
     }
 }

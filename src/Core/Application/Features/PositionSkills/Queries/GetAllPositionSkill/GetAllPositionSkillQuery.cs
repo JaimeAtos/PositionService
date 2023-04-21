@@ -1,7 +1,9 @@
 using Application.DTOs;
 using Application.Exceptions;
+using Application.Extensions;
 using Application.Wrappers;
 using AutoMapper;
+using Domain.Enums;
 using Domain.Repositories;
 using MediatR;
 
@@ -13,11 +15,11 @@ public class GetAllPositionSkillQuery : IRequest<PagedResponse<List<PositionSkil
 	public int PageSize { get; set; }
 	public Guid Id { get; set; }
 	public bool State { get; set; }
-	public Guid SkillId { get; set; }
-	public Guid PositionId { get; set; }
+	public Guid? SkillId { get; set; }
+	public Guid? PositionId { get; set; }
 	public string? SkillName { get; set; }
 	public byte? MinToAccept { get; set; }
-	public byte PositionSkillType { get; set; }
+	public PositionSkillType? PositionSkillType { get; set; }
 }
 
 public class
@@ -44,7 +46,7 @@ public class
 	private async Task<PagedResponse<List<PositionSkillDto>>> ProcessHandle(GetAllPositionSkillQuery request,
 		CancellationToken cancellationToken = default)
 	{
-		var record = await _positionSkillRepository.GetAllAsync(request.PageNumber, request.PageSize, new Dictionary<string, object>(), cancellationToken);
+		var record = await _positionSkillRepository.GetAllAsync(request.PageNumber, request.PageSize, request.GenerateParams(), cancellationToken);
 		var recordDto = _mapper.Map<List<PositionSkillDto>>(record);
 
 		return new PagedResponse<List<PositionSkillDto>>(recordDto, request.PageNumber, request.PageSize);

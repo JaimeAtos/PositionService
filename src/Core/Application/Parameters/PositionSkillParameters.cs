@@ -1,8 +1,8 @@
 using Domain.Enums;
 
-namespace Application.DTOs;
+namespace Application.Parameters;
 
-public class PositionSkillDto
+public class PositionSkillParameters : RequestParameter
 {
 	public Guid Id { get; set; }
 	public bool State { get; set; }

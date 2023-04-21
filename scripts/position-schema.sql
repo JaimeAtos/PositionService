@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "ResourcePosition"
     "State"                BOOL         NOT NULL,
     "UserModifierId"       UUID         NOT NULL UNIQUE,
     "DateLastModify"       DATE         NOT NULL,
-    "PercentMatchPosition" SMALLINT     NOT NULL,
+    "PercentMatchPosition" SMALLINT     NOT NULL DEFAULT 0,
     "IsDefault"            BOOL         NOT NULL,
     "ResourceName"         VARCHAR(100) NOT NULL,
     "ResourceId"           UUID         NOT NULL,

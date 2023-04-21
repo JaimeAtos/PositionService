@@ -2,6 +2,7 @@ using Application.Exceptions;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Repositories;
 using MediatR;
 
@@ -13,7 +14,7 @@ public class UpdatePositionSkillCommand : IRequest<Response<bool>>
 	public Guid PositionId { get; set; }
 	public string? SkillName { get; set; }
 	public byte? MinToAccept { get; set; }
-	public byte PositionSkillType { get; set; }
+	public PositionSkillType PositionSkillType { get; set; }
 }
 
 public class UpdatePositionSkillCommandHandler : IRequestHandler<UpdatePositionSkillCommand, Response<bool>>

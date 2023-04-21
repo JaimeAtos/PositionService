@@ -28,5 +28,4 @@ public class CreatePositionController : BaseApiController
 		return CreatedAtRoute("GetPositionById", routeValues: new {id = result}, command);
 
 	}
-
 }

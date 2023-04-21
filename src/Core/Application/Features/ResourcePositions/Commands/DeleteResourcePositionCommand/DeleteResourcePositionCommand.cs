@@ -33,8 +33,6 @@ public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResour
         if(position is null)
             throw new ApiException($" Entity with {request.Id} not found");
 
-        position.State = false;
-
         var state = await _resourcePositionRepository.DeleteAsync(position.Id, cancellationToken);
         return new Response<bool>(state);
     }

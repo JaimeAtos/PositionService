@@ -4,7 +4,7 @@ namespace Domain.Entities;
 
 public class ResourcePosition : EntityBaseAuditable<Guid, Guid>
 {
-    public byte PercentMatchPosition { get; set; } //20%
+    public byte PercentMatchPosition { get; set; }
     public bool IsDefault { get; set; }
     public string? ResourceName { get; set; }
     public Guid ResourceId { get; set; }
