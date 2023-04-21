@@ -119,12 +119,12 @@ public class ResourcePositionRepository : IResourcePositionRepository
 			foreach (var key in param.Select(fields => fields.Key))
 			{
 				sb.Where($$"""
-								{{key}} = @{{key}}
+								"{{key}}" = @{{key}}
 							""");
 			}
 
 			param.Add("Offset", (page < 1 ? 0 : page - 1) * offset);
-			param.Add("Page", offset);
+			param.Add("PageSize", offset);
 			
 			var parameters = new DynamicParameters(param);
 			

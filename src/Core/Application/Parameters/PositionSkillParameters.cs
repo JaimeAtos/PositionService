@@ -6,9 +6,9 @@ public class PositionSkillParameters : RequestParameter
 {
 	public Guid Id { get; set; }
 	public bool State { get; set; }
-	public Guid SkillId { get; set; }
-	public Guid PositionId { get; set; }
+	public Guid? SkillId { get; set; }
+	public Guid? PositionId { get; set; }
 	public string? SkillName { get; set; }
 	public byte? MinToAccept { get; set; }
-	public PositionSkillType PositionSkillType { get; set; }
+	public PositionSkillType? PositionSkillType { get; set; }
 }

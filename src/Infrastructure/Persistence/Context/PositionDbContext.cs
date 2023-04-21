@@ -1,4 +1,5 @@
 using System.Data;
+using Domain.Enums;
 using Npgsql;
 
 namespace Persistence.Context;

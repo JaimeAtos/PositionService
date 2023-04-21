@@ -14,8 +14,8 @@ public class GetAllResourcePositionQuery : IRequest<PagedResponse<List<ResourceP
     public int PageSize { get; set; }
     public Guid Id { get; set; }
     public bool State { get; set; }
-    public Guid ResourceId { get; set; }
-    public Guid PositionId { get; set; }
+    public Guid? ResourceId { get; set; }
+    public Guid? PositionId { get; set; }
     public byte? PercentMatchPosition { get; set; }
     public bool? IsDefault { get; set; }
     public string? ResourceName { get; set; }

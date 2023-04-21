@@ -116,7 +116,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 			foreach (var key in param.Select(field => field.Key))
 			{
 				sb.Where($$"""
-							{{key}} = @{{key}}
+							"{{key}}" = @{{key}}
 						""");
 			}
 			param.Add("Offset", (page < 1? 0 : page - 1) * offset);

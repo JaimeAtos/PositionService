@@ -1,5 +1,3 @@
-CREATE TYPE SkillType AS ENUM ('0', '1', '2');
-
 CREATE TABLE IF NOT EXISTS "Position"
 (
     "Id"                      UUID         NOT NULL DEFAULT gen_random_uuid(),
@@ -26,7 +24,9 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
     "SkillName"         VARCHAR(80) NOT NULL,
     "MinToAccept"       SMALLINT    NOT NULL
         CONSTRAINT "MinToAccept_CHECK" CHECK ("MinToAccept" >= 0 AND "MinToAccept" <= 100),
-    "PositionSkillType" SkillType   NOT NULL
+    "PositionSkillType" SMALLINT    NOT NULL,
+    CONSTRAINT "CK_PositionSkillType"
+        CHECK ( "PositionSkillType" IN (0, 1, 2) )
 
 );
 

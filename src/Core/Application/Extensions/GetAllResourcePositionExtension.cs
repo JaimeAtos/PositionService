@@ -18,6 +18,12 @@ public static class GetAllResourcePositionExtension
 
 		if (query.PercentMatchPosition is not null)
 			filters.Add("PercentMatchPosition", query.PercentMatchPosition);
+		
+		if (query.ResourceId is not null)
+			filters.Add("ResourceId", query.ResourceId);
+		
+		if (query.PositionId is not null)
+			filters.Add("PositionId", query.PositionId);
 
 		filters.Add("State", query.State);
 		return filters;
