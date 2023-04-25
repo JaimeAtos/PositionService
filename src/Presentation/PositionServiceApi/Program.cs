@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Application;
+using Controllers.Middlewares;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 

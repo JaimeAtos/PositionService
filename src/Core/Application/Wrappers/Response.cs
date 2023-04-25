@@ -6,13 +6,17 @@ public class Response<T>
 	public string? Message { get; set; }
 	public List<string>? Errors { get; set; }
 	public T Data { get; set; }
-	
+
+	public Response()
+	{
+	}
+
 	public Response(bool succeeded, T data)
 	{
 		Succeeded = succeeded;
 		Data = data;
 		Message = null;
-		Errors = null;
+		Errors = new List<string>();
 	}
 
 	public Response(T data, string message = "")
@@ -20,7 +24,7 @@ public class Response<T>
 		Succeeded = true;
 		Message = message;
 		Data = data;
-		Errors = null;
+		Errors = new List<string>();
 	}
 
 	public Response(string message, T data)
@@ -28,6 +32,6 @@ public class Response<T>
 		Succeeded = false;
 		Message = message;
 		Data = data;
-		Errors = null;
+		Errors = new List<string>();
 	}
 }

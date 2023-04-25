@@ -26,6 +26,6 @@ public class CreateResourcePositionController : BaseApiController
     private async Task<IActionResult> ProcessCreateResourcePosition(CreateResourcePositionCommand command, CancellationToken cancellation = default)
     {
         var result = await Mediator.Send(command, cancellation);
-        return CreatedAtRoute("GetResourcePositionById", new { id = result }, command);
+        return CreatedAtRoute("GetResourcePositionById", new { id = result.Data }, command);
     }
 }
