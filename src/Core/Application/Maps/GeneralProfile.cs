@@ -1,10 +1,10 @@
 using Application.DTOs;
 using Application.Features.Positions.Commands.CreatePositionCommand;
-using Application.Features.Positions.Queries.GetPositionById;
+using Application.Features.Positions.Commands.UpdatePositionCommand;
 using Application.Features.PositionSkills.Commands.CreatePositionSkillCommand;
-using Application.Features.PositionSkills.Queries.GetPositionSkillById;
+using Application.Features.PositionSkills.Commands.UpdatePositionSkillCommand;
 using Application.Features.ResourcePositions.Commands.CreateResourcePositionCommand;
-using Application.Features.ResourcePositions.Queries.GetResourcePositionById;
+using Application.Features.ResourcePositions.Commands.UpdateResourcePositionCommand;
 using AutoMapper;
 using Domain.Entities;
 
@@ -18,6 +18,9 @@ public class GeneralProfile : Profile
         CreateMap<CreatePositionCommand, Position>();
         CreateMap<CreatePositionSkillCommand, PositionSkill>();
         CreateMap<CreateResourcePositionCommand, ResourcePosition>();
+        CreateMap<UpdatePositionCommand, Position>();
+        CreateMap<UpdatePositionSkillCommand, PositionSkill>();
+        CreateMap<UpdateResourcePositionCommand, ResourcePosition>();
         #endregion
 
         #region DTOs
