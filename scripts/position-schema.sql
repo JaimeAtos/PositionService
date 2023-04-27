@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
         CONSTRAINT "MinToAccept_CHECK" CHECK ("MinToAccept" >= 0 AND "MinToAccept" <= 100),
     "PositionSkillType" SMALLINT    NOT NULL,
     CONSTRAINT "CK_PositionSkillType"
-        CHECK ( "PositionSkillType" IN (0, 1, 2) )
+        CHECK ( "PositionSkillType" IN (0, 1, 2) ),
+    CONSTRAINT "UK_SkillId_PositionId"
+        UNIQUE ("SkillId", "PositionId")
 
 );
 
@@ -55,7 +57,7 @@ ALTER TABLE "ResourcePosition"
 
 ALTER TABLE "PositionSkill"
     ADD CONSTRAINT "FK_PositionSkill_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id")
-ON UPDATE CASCADE;
+        ON UPDATE CASCADE;
 ALTER Table "ResourcePosition"
     ADD CONSTRAINT "FK_ResourcePosition_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id")
-ON UPDATE CASCADE;
+        ON UPDATE CASCADE;
