@@ -1,4 +1,4 @@
-using Atos.Core.Common;
+using Atos.Core.Commons;
 using Domain.Enums;
 
 namespace Domain.Entities;
