@@ -27,6 +27,8 @@ public class ReadResourcePositionController : BaseApiController
 			PageNumber = filters.PageNumber,
 			PageSize = filters.PageSize,
 			State = filters.State,
+			ResourceId = filters.ResourceId,
+			PositionId = filters.PositionId,
 			ResourceName = filters.ResourceName,
 			PercentMatchPosition = filters.PercentMatchPosition,
 			IsDefault = filters.IsDefault,

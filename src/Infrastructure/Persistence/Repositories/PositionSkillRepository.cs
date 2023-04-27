@@ -168,7 +168,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 				SET "UserModifierId" = @UserModifierId,
 				    "DateLastModify" = @DateLastModify,
 				    "SkillId" = @SkillId,
-				    "PositionSkillType"= @PositionId,
+				    "PositionId"= @PositionId,
 				    "SkillName"= @SkillName,
 				    "MinToAccept" = @MinToAccept,
 				    "PositionSkillType" = @PositionSkillType

@@ -9,6 +9,7 @@ namespace Application.Features.ResourcePositions.Commands.UpdateResourcePosition
 
 public class UpdateResourcePositionCommand : IRequest<Response<bool>>
 {
+    public Guid Id { get; set; }
     public Guid ResourceId { get; set; }
     public Guid PositionId { get; set; }
     public byte PercentMatchPosition { get; set; }

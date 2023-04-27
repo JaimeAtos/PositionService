@@ -10,6 +10,7 @@ namespace Application.Features.ResourcePositions.Commands.CreateResourcePosition
 public class CreateResourcePositionCommand : IRequest<Response<Guid>>
 {
     public Guid PositionId { get; set; }
+    public Guid ResourceId { get; set; }
     public byte PercentMatchPosition { get; set; }
     public bool IsDefault { get; set; }
     public string? ResourceName { get; set; }

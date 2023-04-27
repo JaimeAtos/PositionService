@@ -53,11 +53,11 @@ public class ResourcePositionRepository : IResourcePositionRepository
 					UserCreatorId = Guid.NewGuid(),
 					CreationTime = DateTime.UtcNow,
 					State = true,
-					UserModfiedId = Guid.NewGuid(),
+					UserModifierId = Guid.NewGuid(),
 					DateLastModify = DateTime.UtcNow,
 					entity.ResourceId,
 					entity.PositionId,
-					PercentMathPosition = entity.PercentMatchPosition,
+					entity.PercentMatchPosition,
 					entity.IsDefault,
 					entity.ResourceName,
 					entity.RomaId
@@ -176,6 +176,8 @@ public class ResourcePositionRepository : IResourcePositionRepository
 					"PercentMatchPosition" = @PercentMatchPosition,
 				    "IsDefault" = @IsDefault,
 				    "ResourceName" = @ResourceName,
+				    "ResourceId" = @ResourceId,
+				    "PositionId" = @PositionId,
 				    "RomaId" = @RomaId
 				WHERE "Id" = @Id;
 				""";
@@ -185,9 +187,11 @@ public class ResourcePositionRepository : IResourcePositionRepository
 				Id = id,
 				DateLastModify = DateTime.UtcNow,
 				UserModifierId = Guid.NewGuid(),
-				PercentMathPosition = entity.PercentMatchPosition,
+				entity.PercentMatchPosition,
 				entity.IsDefault,
 				entity.ResourceName,
+				entity.ResourceId,
+				entity.PositionId,
 				entity.RomaId
 			});
 			return result > 0;

@@ -10,6 +10,7 @@ namespace Application.Features.PositionSkills.Commands.UpdatePositionSkillComman
 
 public class UpdatePositionSkillCommand : IRequest<Response<bool>>
 {
+	public Guid Id { get; set; }
 	public Guid SkillId { get; set; }
 	public Guid PositionId { get; set; }
 	public string? SkillName { get; set; }

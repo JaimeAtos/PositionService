@@ -54,6 +54,8 @@ ALTER TABLE "ResourcePosition"
     ADD CONSTRAINT "PK_ResourcePosition_Id" PRIMARY KEY ("Id");
 
 ALTER TABLE "PositionSkill"
-    ADD CONSTRAINT "FK_PositionSkill_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id");
+    ADD CONSTRAINT "FK_PositionSkill_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id")
+ON UPDATE CASCADE;
 ALTER Table "ResourcePosition"
-    ADD CONSTRAINT "FK_ResourcePosition_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id");
+    ADD CONSTRAINT "FK_ResourcePosition_Position_Id" FOREIGN KEY ("PositionId") REFERENCES "Position" ("Id")
+ON UPDATE CASCADE;
