@@ -9,7 +9,6 @@ namespace Application.Features.Positions.Commands.CreatePositionCommand;
 
 public class CreatePositionCommand : IRequest<Response<Guid>>
 {
-    public Guid Id { get; set; }
     public string? Description { get; set; }
     public string? CatalogLevelDescription { get; set; }
     public Guid CatalogLevelId { get; set; }
