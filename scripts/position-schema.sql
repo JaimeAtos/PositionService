@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS "Position"
 (
     "Id"                      UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"           UUID         NOT NULL UNIQUE,
+    "UserCreatorId"           UUID         NOT NULL,
     "CreationTime"            DATE         NOT NULL,
     "State"                   BOOL         NOT NULL,
-    "UserModifierId"          UUID         NOT NULL UNIQUE,
+    "UserModifierId"          UUID         NOT NULL,
     "DateLastModify"          DATE         NOT NULL,
     "Description"             VARCHAR(500) NOT NULL,
     "CatalogLevelDescription" VARCHAR(50)  NOT NULL,
@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS "Position"
 CREATE TABLE IF NOT EXISTS "PositionSkill"
 (
     "Id"                UUID        NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"     UUID        NOT NULL UNIQUE,
+    "UserCreatorId"     UUID        NOT NULL,
     "CreationTime"      DATE        NOT NULL,
     "State"             BOOL        NOT NULL,
-    "UserModifierId"    UUID        NOT NULL UNIQUE,
+    "UserModifierId"    UUID        NOT NULL,
     "DateLastModify"    DATE        NOT NULL,
     "SkillId"           UUID        NOT NULL,
     "PositionId"        UUID        NOT NULL,
@@ -35,17 +35,17 @@ CREATE TABLE IF NOT EXISTS "PositionSkill"
 CREATE TABLE IF NOT EXISTS "ResourcePosition"
 (
     "Id"                   UUID         NOT NULL DEFAULT gen_random_uuid(),
-    "UserCreatorId"        UUID         NOT NULL UNIQUE,
+    "UserCreatorId"        UUID         NOT NULL,
     "CreationTime"         DATE         NOT NULL,
     "State"                BOOL         NOT NULL,
-    "UserModifierId"       UUID         NOT NULL UNIQUE,
+    "UserModifierId"       UUID         NOT NULL,
     "DateLastModify"       DATE         NOT NULL,
     "PercentMatchPosition" SMALLINT     NOT NULL DEFAULT 0,
     "IsDefault"            BOOL         NOT NULL,
     "ResourceName"         VARCHAR(100) NOT NULL,
     "ResourceId"           UUID         NOT NULL,
     "PositionId"           UUID         NOT NULL,
-    "RomaId"               VARCHAR(100) NOT NULL UNIQUE
+    "RomaId"               VARCHAR(100) NOT NULL
 );
 
 ALTER TABLE "Position"
