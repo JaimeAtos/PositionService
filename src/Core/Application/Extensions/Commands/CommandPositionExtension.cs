@@ -3,7 +3,7 @@ using Application.Features.Positions.Commands.DeletePositionCommand;
 using Application.Features.Positions.Commands.UpdatePositionCommand;
 using Atos.Core.EventsDTO;
 
-namespace Application.Extensions;
+namespace Application.Extensions.Commands;
 
 public static class CommandPositionExtension
 {

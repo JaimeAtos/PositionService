@@ -1,6 +1,7 @@
 using Application.DTOs;
 using Application.Exceptions;
 using Application.Extensions;
+using Application.Extensions.Queries;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Enums;

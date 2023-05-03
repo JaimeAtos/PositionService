@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions;
+using Application.Extensions.Commands;
 using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
