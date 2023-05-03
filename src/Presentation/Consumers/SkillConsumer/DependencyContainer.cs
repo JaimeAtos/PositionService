@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
-using SkillConsumer.Consumers.SkillChanged;
+using SkillConsumer.SkillChanged;
 
 namespace SkillConsumer;
 
@@ -20,9 +20,9 @@ public static class DependencyContainer
 				cfg.ReceiveEndpoint("skill.created", econfigureEndpoint =>
 				{
 					econfigureEndpoint.Durable = true;
-					econfigureEndpoint.UseMessageRetry(retrayConfigure =>
+					econfigureEndpoint.UseMessageRetry(retryConfigure =>
 					{
-						retrayConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
+						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
 					});
 					econfigureEndpoint.ConfigureConsumer<SkillCreatedConsumer>(ctx);
 				});

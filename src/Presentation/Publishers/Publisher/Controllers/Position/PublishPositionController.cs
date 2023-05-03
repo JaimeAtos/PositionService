@@ -6,6 +6,7 @@ namespace Publisher.Controllers.Position;
 
 [Route("api/[controller]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class PublishPositionController : ControllerBase
 {
 	private readonly IPublishEndpoint _publishEndpoint;

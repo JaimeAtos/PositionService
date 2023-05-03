@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Publisher.Controllers.PositionSkill;
 
-[Route("api/[controller]")]
+[Route("api/v{}/[controller]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class PublishPositionSkillController : ControllerBase
 {
 	private readonly IPublishEndpoint _publishEndpoint;

@@ -16,10 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ResourceConsumer\ResourceConsumer.csproj" />
-    <ProjectReference Include="..\SkillConsumer\SkillConsumer.csproj" />
     <ProjectReference Include="..\Controllers\Controllers.csproj" />
-    <ProjectReference Include="..\Publisher\Publisher.csproj" />
   </ItemGroup>
 
 </Project>

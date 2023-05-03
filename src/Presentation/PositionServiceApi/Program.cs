@@ -1,9 +1,7 @@
 using Application;
-using SkillConsumer;
 using Controllers.Middlewares;
 using Persistence;
-using Publisher;
-using ResourceConsumer;
+using PositionConsumers;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -15,9 +13,6 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddApiVersioning();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-builder.Services.AddPublisher();
-builder.Services.AddSkillConsumer();
-builder.Services.AddResourceConsumer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

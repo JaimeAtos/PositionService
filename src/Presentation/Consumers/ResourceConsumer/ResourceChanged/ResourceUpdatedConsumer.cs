@@ -1,7 +1,7 @@
 using Atos.Core.EventsDTO;
 using MassTransit;
 
-namespace ResourceConsumer.Consumers.ResourceChanged;
+namespace ResourceConsumer.ResourceChanged;
 
 public class ResourceUpdatedConsumer : IConsumer<ResourceUpdated>
 {

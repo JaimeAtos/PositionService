@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
-using ResourceConsumer.Consumers.ResourceChanged;
+using ResourceConsumer.ResourceChanged;
 
 namespace ResourceConsumer;
 

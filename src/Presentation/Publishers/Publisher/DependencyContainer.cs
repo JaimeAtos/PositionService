@@ -1,7 +1,9 @@
+using Atos.Core.EventsDTO;
 using MassTransit;
+using RabbitMQ.Client;
 
 namespace Publisher;
-	
+
 public static class DependencyContainer
 {
 	public static IServiceCollection AddPublisher(this IServiceCollection services)
@@ -9,7 +11,10 @@ public static class DependencyContainer
 		services.AddControllers();
 		services.AddMassTransit(cfg =>
 		{
-			cfg.UsingRabbitMq((ctx, cfg1) => { cfg1.Host("amqp://guest@localhost:5672"); });
+			cfg.UsingRabbitMq((ctx, cfgrmq) =>
+			{
+				cfgrmq.Host("amqp://guest:guest@localhost:5672");
+			});
 		});
 		return services;
 	}

@@ -1,8 +1,7 @@
-
 using Atos.Core.EventsDTO;
 using MassTransit;
 
-namespace SkillConsumer.Consumers.SkillChanged;
+namespace SkillConsumer.SkillChanged;
 
 public class SkillCreatedConsumer : IConsumer<SkillCreated>
 {
