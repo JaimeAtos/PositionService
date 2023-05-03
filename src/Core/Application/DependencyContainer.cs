@@ -3,8 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Atos.Core.EventsDTO;
 using MassTransit;
-using PositionConsumers;
-using RabbitMQ.Client;
 
 namespace Application;
 
@@ -16,7 +14,6 @@ public static class DependencyContainer
 		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
 		services.AddMassTransit(cfg =>
 		{
-			cfg.AddConsumer<PositionCreatedConsumer>();
 			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
@@ -29,7 +26,7 @@ public static class DependencyContainer
 					{
 						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
 					});
-					econfigureEndpoint.ConfigureConsumer<PositionCreatedConsumer>(ctx);
+					// econfigureEndpoint.ConfigureConsumer<PositionCreatedConsumer>(ctx);
 					econfigureEndpoint.Bind("Atos.Core.EventsDTO:PositionCreated", d =>
 					{
 						d.ExchangeType = "topic";
