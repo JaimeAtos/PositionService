@@ -1,7 +1,7 @@
-using System.Text.RegularExpressions;
 using Application;
 using Controllers.Middlewares;
 using Persistence;
+using Publisher;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -13,6 +13,7 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddApiVersioning();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
+builder.Services.AddPublisher();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

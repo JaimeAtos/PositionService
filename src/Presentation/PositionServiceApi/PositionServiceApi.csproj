@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Consumer\Consumer.csproj" />
     <ProjectReference Include="..\Controllers\Controllers.csproj" />
+    <ProjectReference Include="..\Publisher\Publisher.csproj" />
   </ItemGroup>
 
 </Project>
