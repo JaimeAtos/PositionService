@@ -19,7 +19,7 @@ public static class DependencyContainer
 			{
 				cfgrmq.Host("amqp://guest:guest@localhost:5672");
 				
-				cfgrmq.ReceiveEndpoint("SkillServiceQueue", configureEndpoint =>
+				cfgrmq.ReceiveEndpoint("PositionServiceQueue", configureEndpoint =>
 				{
 					configureEndpoint.ConfigureConsumeTopology = false;
 					configureEndpoint.Durable = true;
@@ -46,17 +46,6 @@ public static class DependencyContainer
 						d.ExchangeType = "topic";
 						d.RoutingKey = "skill.deleted";
 					});
-				});
-
-				cfgrmq.ReceiveEndpoint("ResourceServiceQueue", configureEndpoint =>
-				{
-					configureEndpoint.ConfigureConsumeTopology = false;
-					configureEndpoint.Durable = true;
-					
-					configureEndpoint.UseMessageRetry(retryConfigure =>
-					{
-						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
-					});
 					
 					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceCreated", d =>
 					{
@@ -75,7 +64,6 @@ public static class DependencyContainer
 						d.ExchangeType = "topic";
 						d.RoutingKey = "resource.deleted";
 					});
-					
 				});
 				
 				cfgrmq.Publish<PositionCreated>(x =>
@@ -90,7 +78,6 @@ public static class DependencyContainer
 				{
 					x.ExchangeType = "topic";
 				});
-				
 				
 				cfgrmq.Publish<PositionSkillCreated>(x =>
 				{
