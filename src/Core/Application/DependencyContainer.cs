@@ -1,6 +1,7 @@
 using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Application.Consumers.ResourceConsumer;
 using Application.Consumers.SkillConsumer;
 using Atos.Core.EventsDTO;
 using MassTransit;
@@ -16,6 +17,9 @@ public static class DependencyContainer
 		services.AddMassTransit(cfg =>
 		{
 			cfg.AddConsumer<SkillUpdatedConsumer>();
+			cfg.AddConsumer<SkillDeletedConsumer>();
+			cfg.AddConsumer<ResourceUpdatedConsumer>();
+			cfg.AddConsumer<ResourceDeletedConsumer>();
 			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
@@ -28,6 +32,9 @@ public static class DependencyContainer
 					configureEndpoint.Durable = true;
 					
 					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<ResourceUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<ResourceDeletedConsumer>(ctx);
 					
 					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
