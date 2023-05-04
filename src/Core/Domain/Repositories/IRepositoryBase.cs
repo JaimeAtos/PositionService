@@ -6,6 +6,7 @@ public interface IRepositoryBase<TKey, TUserKey, TEntity> where TEntity : class,
 {
     Task<TEntity> GetEntityByIdAsync(TKey id, CancellationToken cancellationToken = default);
     Task<IEnumerable<TEntity>> GetAllAsync(int page, int offset, Dictionary<string, object> param, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TEntity>> GetAllAsync(Dictionary<string, object> param, CancellationToken cancellationToken = default);
     Task<TKey> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
     Task<bool> UpdateAsync(TEntity entity, TKey id, CancellationToken cancellationToken = default);
     Task<bool> DeleteAsync(TKey id, CancellationToken cancellationToken = default);

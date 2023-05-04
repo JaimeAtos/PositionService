@@ -1,6 +1,7 @@
 using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Application.Consumers.SkillConsumer;
 using Atos.Core.EventsDTO;
 using MassTransit;
 
@@ -14,26 +15,25 @@ public static class DependencyContainer
 		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
 		services.AddMassTransit(cfg =>
 		{
+			cfg.AddConsumer<SkillUpdatedConsumer>();
 			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
 				cfgrmq.Host("amqp://guest:guest@localhost:5672");
+				
 				
 				cfgrmq.ReceiveEndpoint("PositionServiceQueue", configureEndpoint =>
 				{
 					configureEndpoint.ConfigureConsumeTopology = false;
 					configureEndpoint.Durable = true;
 					
+					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					
 					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
 						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
 					});
 					
-					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillCreated", d =>
-					{
-						d.ExchangeType = "topic";
-						d.RoutingKey = "skill.created";
-					});
 					
 					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillUpdated", d =>
 					{
@@ -45,12 +45,6 @@ public static class DependencyContainer
 					{
 						d.ExchangeType = "topic";
 						d.RoutingKey = "skill.deleted";
-					});
-					
-					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceCreated", d =>
-					{
-						d.ExchangeType = "topic";
-						d.RoutingKey = "resource.created";
 					});
 					
 					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceUpdated", d =>
