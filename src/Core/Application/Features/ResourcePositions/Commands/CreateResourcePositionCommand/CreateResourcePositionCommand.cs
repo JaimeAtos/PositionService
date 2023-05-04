@@ -1,45 +1,67 @@
 using Application.Exceptions;
-using Application.Wrappers;
+using Application.Extensions.Commands;
+using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories;
+using MassTransit;
 using MediatR;
 
 namespace Application.Features.ResourcePositions.Commands.CreateResourcePositionCommand;
 
-public class CreateResourcePositionCommand : IRequest<Response<Guid>>
+public class CreateResourcePositionCommand : IRequest<Wrappers.Response<Guid>>
 {
-    public Guid PositionId { get; set; }
-    public Guid ResourceId { get; set; }
-    public byte PercentMatchPosition { get; set; }
-    public bool IsDefault { get; set; }
-    public string? ResourceName { get; set; }
-    public string? RomaId { get; set; }
+	public Guid PositionId { get; set; }
+	public Guid ResourceId { get; set; }
+	public byte PercentMatchPosition { get; set; }
+	public bool IsDefault { get; set; }
+	public string? ResourceName { get; set; }
+	public string? RomaId { get; set; }
 }
 
-public class CreateResourcePositionCommandHandler : IRequestHandler<CreateResourcePositionCommand, Response<Guid>>
+public class
+	CreateResourcePositionCommandHandler : IRequestHandler<CreateResourcePositionCommand, Wrappers.Response<Guid>>
 {
-    private readonly IResourcePositionRepository _resourcePositionRepository;
-    private readonly IMapper _mapper;
+	private readonly IResourcePositionRepository _resourcePositionRepository;
+	private readonly IMapper _mapper;
+	private readonly IPublishEndpoint _publishEndpoint;
 
-    public CreateResourcePositionCommandHandler(IResourcePositionRepository repository, IMapper mapper)
-    {
-        _resourcePositionRepository = repository;
-        _mapper = mapper;
-    }
+	public CreateResourcePositionCommandHandler(IResourcePositionRepository repository, IMapper mapper,
+		IPublishEndpoint publishEndpoint)
+	{
+		_resourcePositionRepository = repository;
+		_mapper = mapper;
+		_publishEndpoint = publishEndpoint;
+	}
 
-    public Task<Response<Guid>> Handle(CreateResourcePositionCommand request, CancellationToken cancellationToken)
-    {
-        if (request is null)
-            throw new ApiException("Request is empty");
+	public Task<Wrappers.Response<Guid>> Handle(CreateResourcePositionCommand request,
+		CancellationToken cancellationToken)
+	{
+		if (request is null)
+			throw new ApiException("Request is empty");
 
-        return ProcessHandle(request, cancellationToken);
-    }
+		return ProcessHandle(request, cancellationToken);
+	}
 
-    private async Task<Response<Guid>> ProcessHandle(CreateResourcePositionCommand request, CancellationToken cancellationToken)
-    {
-        var newRecord = _mapper.Map<ResourcePosition>(request);
-        var data = await _resourcePositionRepository.CreateAsync(newRecord, cancellationToken);
-        return new Response<Guid>(data);
-    }
+	private async Task<Wrappers.Response<Guid>> ProcessHandle(CreateResourcePositionCommand request,
+		CancellationToken cancellationToken)
+	{
+		var newRecord = _mapper.Map<ResourcePosition>(request);
+		var data = await _resourcePositionRepository.CreateAsync(newRecord, cancellationToken);
+		await PublishResourcePositionCreated(request.ToResourcePositionCreated(data), cancellationToken);
+		return new Wrappers.Response<Guid>(data);
+	}
+
+	private async Task PublishResourcePositionCreated(ResourcePositionCreated resourcePosition,
+		CancellationToken cancellationToken)
+	{
+		await _publishEndpoint.Publish(
+			resourcePosition,
+			ctx =>
+			{
+				ctx.MessageId = resourcePosition.Id;
+				ctx.SetRoutingKey("resourcePosition.created");
+			},
+			cancellationToken);
+	}
 }
