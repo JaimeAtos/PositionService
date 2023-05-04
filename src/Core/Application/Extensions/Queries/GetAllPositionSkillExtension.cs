@@ -1,6 +1,6 @@
 using Application.Features.PositionSkills.Queries.GetAllPositionSkill;
 
-namespace Application.Extensions;
+namespace Application.Extensions.Queries;
 
 public static class GetAllPositionSkillExtension
 {

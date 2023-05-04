@@ -1,7 +1,6 @@
 using Application;
 using Controllers.Middlewares;
 using Persistence;
-using PositionConsumers;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

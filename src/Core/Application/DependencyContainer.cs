@@ -1,10 +1,10 @@
 using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Application.Consumers.ResourceConsumer;
+using Application.Consumers.SkillConsumer;
 using Atos.Core.EventsDTO;
 using MassTransit;
-using PositionConsumers;
-using RabbitMQ.Client;
 
 namespace Application;
 
@@ -16,28 +16,92 @@ public static class DependencyContainer
 		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
 		services.AddMassTransit(cfg =>
 		{
-			cfg.AddConsumer<PositionCreatedConsumer>();
+			cfg.AddConsumer<SkillUpdatedConsumer>();
+			cfg.AddConsumer<SkillDeletedConsumer>();
+			cfg.AddConsumer<ResourceUpdatedConsumer>();
+			cfg.AddConsumer<ResourceDeletedConsumer>();
 			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
 				cfgrmq.Host("amqp://guest:guest@localhost:5672");
-				cfgrmq.ReceiveEndpoint("PositionServiceQueue", econfigureEndpoint =>
+				
+				
+				cfgrmq.ReceiveEndpoint("PositionServiceQueue", configureEndpoint =>
 				{
-					econfigureEndpoint.ConfigureConsumeTopology = false;
-					econfigureEndpoint.Durable = true;
-					econfigureEndpoint.UseMessageRetry(retryConfigure =>
+					configureEndpoint.ConfigureConsumeTopology = false;
+					configureEndpoint.Durable = true;
+					
+					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<ResourceUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<ResourceDeletedConsumer>(ctx);
+					
+					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
 						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
 					});
-					econfigureEndpoint.ConfigureConsumer<PositionCreatedConsumer>(ctx);
-					econfigureEndpoint.Bind("Atos.Core.EventsDTO:PositionCreated", d =>
+					
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillUpdated", d =>
 					{
 						d.ExchangeType = "topic";
-						d.RoutingKey = "position.created";
+						d.RoutingKey = "skill.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "skill.deleted";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceUpdated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "resource.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "resource.deleted";
 					});
 				});
-
+				
 				cfgrmq.Publish<PositionCreated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<PositionUpdated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<PositionDeleted>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				
+				cfgrmq.Publish<PositionSkillCreated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<PositionSkillUpdated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<PositionSkillDeleted>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				
+				cfgrmq.Publish<ResourcePositionCreated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<ResourcePositionUpdated>(x =>
+				{
+					x.ExchangeType = "topic";
+				});
+				cfgrmq.Publish<ResourcePositionDeleted>(x =>
 				{
 					x.ExchangeType = "topic";
 				});

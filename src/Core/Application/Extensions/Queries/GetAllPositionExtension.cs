@@ -1,7 +1,7 @@
 
 using Application.Features.Positions.Queries.GetALlPosition;
 
-namespace Application.Extensions;
+namespace Application.Extensions.Queries;
 
 public static class GetAllPositionExtension
 {

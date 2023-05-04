@@ -1,4 +1,5 @@
 using Application.Exceptions;
+using Application.Extensions.Commands;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
@@ -42,20 +43,19 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
 	{
 		var newRecord = _mapper.Map<Position>(request);
 		var data = await _positionRepository.CreateAsync(newRecord, cancellationToken);
+		await PublishCreatePositionCommand(request.ToPositionCreated(data), cancellationToken);
+		return new Wrappers.Response<Guid>(data);
+	}
 
-		await _publishEndpoint.Publish<PositionCreated>(new PositionCreated
+	private async Task PublishCreatePositionCommand(PositionCreated request, CancellationToken cancellationToken)
+	{
+		await _publishEndpoint.Publish(
+			request,
+			ctx =>
 			{
-				Id = data,
-				Description = request.Description,
-				CatalogLevelDescription = request.CatalogLevelDescription,
-				CatalogLevelId = request.CatalogLevelId
-			}, ctx =>
-			{
-				ctx.MessageId = data;
+				ctx.MessageId = request.Id;
 				ctx.SetRoutingKey("position.created");
 			},
 			cancellationToken);
-
-		return new Wrappers.Response<Guid>(data);
 	}
 }

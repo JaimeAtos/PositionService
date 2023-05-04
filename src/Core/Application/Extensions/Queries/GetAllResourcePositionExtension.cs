@@ -1,6 +1,6 @@
 using Application.Features.ResourcePositions.Queries.GetAllResourcePosition;
 
-namespace Application.Extensions;
+namespace Application.Extensions.Queries;
 
 public static class GetAllResourcePositionExtension
 {

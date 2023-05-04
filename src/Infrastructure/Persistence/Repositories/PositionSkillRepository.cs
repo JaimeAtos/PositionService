@@ -87,6 +87,47 @@ public class PositionSkillRepository : IPositionSkillRepository
 		}, cancellationToken);
 		return task;
 	}
+	
+	public async Task<IEnumerable<PositionSkill>> GetAllAsync(Dictionary<string, object> param,
+		CancellationToken cancellationToken = default)
+	{
+		var task = await Task.Run(async () =>
+		{
+			var query =
+				"""
+				SELECT "Id",
+				       "UserCreatorId",
+				       "CreationTime",
+				       "State",
+				       "UserModifierId",
+				       "DateLastModify",
+				       "SkillId",
+				       "PositionId",
+				       "SkillName",
+				       "MinToAccept",
+				       "PositionSkillType"
+				FROM "PositionSkill" /**where**/
+				;
+				""";
+			
+			var sb = new SqlBuilder();
+			var template = sb.AddTemplate(query);
+			
+			foreach (var key in param.Select(field => field.Key))
+			{
+				sb.Where($$"""
+							"{{key}}" = @{{key}}
+						""");
+			}
+			
+			var parameters = new DynamicParameters(param);
+			using var con = _dbContext.CreateConnection();
+			var result = await con.QueryAsync<PositionSkill>(template.RawSql, parameters);
+			return result;
+		}, cancellationToken);
+
+		return task;
+	}
 
 	public async Task<IEnumerable<PositionSkill>> GetAllAsync(int page, int offset, Dictionary<string, object> param,
 		CancellationToken cancellationToken = default)
@@ -110,6 +151,7 @@ public class PositionSkillRepository : IPositionSkillRepository
 				                     OFFSET @Offset
 				                     FETCH NEXT @PageSize ROWS ONLY;
 				""";
+			
 			var sb = new SqlBuilder();
 			var template = sb.AddTemplate(query);
 			
