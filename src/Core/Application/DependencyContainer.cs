@@ -18,20 +18,66 @@ public static class DependencyContainer
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
 				cfgrmq.Host("amqp://guest:guest@localhost:5672");
-				cfgrmq.ReceiveEndpoint("PositionServiceQueue", configureEndpoint =>
-				{ configureEndpoint.ConfigureConsumeTopology = false;
+				
+				cfgrmq.ReceiveEndpoint("SkillServiceQueue", configureEndpoint =>
+				{
+					configureEndpoint.ConfigureConsumeTopology = false;
 					configureEndpoint.Durable = true;
+					
 					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
 						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
 					});
-					configureEndpoint.Bind("Atos.Core.EventsDTO:PositionCreated", d =>
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillCreated", d =>
 					{
 						d.ExchangeType = "topic";
-						d.RoutingKey = "position.created";
+						d.RoutingKey = "skill.created";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillUpdated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "skill.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:SkillDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "skill.deleted";
 					});
 				});
 
+				cfgrmq.ReceiveEndpoint("ResourceServiceQueue", configureEndpoint =>
+				{
+					configureEndpoint.ConfigureConsumeTopology = false;
+					configureEndpoint.Durable = true;
+					
+					configureEndpoint.UseMessageRetry(retryConfigure =>
+					{
+						retryConfigure.Interval(5, TimeSpan.FromMilliseconds(1000));
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceCreated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "resource.created";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceUpdated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "resource.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ResourceDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "resource.deleted";
+					});
+					
+				});
+				
 				cfgrmq.Publish<PositionCreated>(x =>
 				{
 					x.ExchangeType = "topic";
