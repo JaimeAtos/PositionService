@@ -8,7 +8,10 @@ CREATE TABLE IF NOT EXISTS "Position"
     "DateLastModify"          DATE,
     "Description"             VARCHAR(500) NOT NULL,
     "CatalogLevelDescription" VARCHAR(50),
-    "CatalogLevelId"          UUID
+    "ClientDescription"       VARCHAR(120),
+    "CatalogLevelId"          UUID,
+    "ClientId"                UUID
+
 );
 
 CREATE TABLE IF NOT EXISTS "PositionSkill"

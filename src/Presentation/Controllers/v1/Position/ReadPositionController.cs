@@ -29,7 +29,9 @@ public class ReadPositionController : BaseApiController
 			State = filters.State,
 			Description = filters.Description,
 			CatalogLevelDescription = filters.CatalogLevelDescription,
-			CatalogLevelId = filters.CatalogLevelId
+			CatalogLevelId = filters.CatalogLevelId,
+			ClientDescription = filters.ClientDescription,
+			ClientId = filters.ClientId
 		}));
 	}
 
