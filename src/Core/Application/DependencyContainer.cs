@@ -1,6 +1,7 @@
 using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Application.Consumers.CatalogLevelConsumer;
 using Application.Consumers.ResourceConsumer;
 using Application.Consumers.SkillConsumer;
 using Atos.Core.EventsDTO;
@@ -18,8 +19,12 @@ public static class DependencyContainer
 		{
 			cfg.AddConsumer<SkillUpdatedConsumer>();
 			cfg.AddConsumer<SkillDeletedConsumer>();
+			
 			cfg.AddConsumer<ResourceUpdatedConsumer>();
 			cfg.AddConsumer<ResourceDeletedConsumer>();
+
+			cfg.AddConsumer<CatalogLevelUpdatedConsumer>();
+			cfg.AddConsumer<CatalogLevelDeletedConsumer>();
 			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
@@ -33,8 +38,13 @@ public static class DependencyContainer
 					
 					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
 					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					
 					configureEndpoint.ConfigureConsumer<ResourceUpdatedConsumer>(ctx);
 					configureEndpoint.ConfigureConsumer<ResourceDeletedConsumer>(ctx);
+					
+					configureEndpoint.ConfigureConsumer<CatalogLevelUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<CatalogLevelDeletedConsumer>(ctx);
+					
 					
 					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
@@ -64,6 +74,18 @@ public static class DependencyContainer
 					{
 						d.ExchangeType = "topic";
 						d.RoutingKey = "resource.deleted";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:CatalogLevelUpdated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "catalog.level.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:CatalogLevelDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "catalog.level.deleted";
 					});
 				});
 				
