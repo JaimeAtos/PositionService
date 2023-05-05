@@ -14,7 +14,9 @@ public static class CommandPositionExtension
 			Id = id,
 			CatalogLevelDescription = request.CatalogLevelDescription,
 			CatalogLevelId = request.CatalogLevelId,
-			Description = request.Description
+			Description = request.Description,
+			ClientDescription = request.ClientDescription,
+			ClientId = request.ClientId
 		};
 	}
 	
@@ -25,7 +27,9 @@ public static class CommandPositionExtension
 			Id = request.Id,
 			CatalogLevelDescription = request.CatalogLevelDescription,
 			CatalogLevelId = request.CatalogLevelId,
-			Description = request.Description
+			Description = request.Description,
+			ClientDescription = request.ClientDescription,
+			ClientId = request.ClientId
 		};
 	}
 	

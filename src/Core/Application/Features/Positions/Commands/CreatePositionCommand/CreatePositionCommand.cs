@@ -12,8 +12,10 @@ namespace Application.Features.Positions.Commands.CreatePositionCommand;
 public class CreatePositionCommand : IRequest<Wrappers.Response<Guid>>
 {
 	public string? Description { get; set; }
+	public string? ClientDescription { get; set; }
 	public string? CatalogLevelDescription { get; set; }
 	public Guid CatalogLevelId { get; set; }
+	public Guid ClientId { get; set; }
 }
 
 public class CreatePositionCommandHandler : IRequestHandler<CreatePositionCommand, Wrappers.Response<Guid>>

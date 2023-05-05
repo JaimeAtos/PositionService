@@ -15,8 +15,14 @@ public static class GetAllPositionExtension
 		if (query.Description is not null)
 			filters.Add("Description", query.Description);
 		
+		if (query.ClientDescription is not null)
+			filters.Add("ClientId", query.ClientDescription);
+		
 		if (query.CatalogLevelId is not null)
 			filters.Add("CatalogLevelId", query.CatalogLevelId);
+		
+		if (query.ClientId is not null)
+			filters.Add("ClientId", query.ClientId);
 		
 		filters.Add("State", query.State);
 		return filters;

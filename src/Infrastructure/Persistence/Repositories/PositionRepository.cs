@@ -28,7 +28,9 @@ public class PositionRepository : IPositionRepository
 					 "State",
 					 "Description",
 					 "CatalogLevelDescription",
-					 "CatalogLevelId")
+					 "CatalogLevelId",
+					 "ClientId",
+					 "ClientDescription")
 				VALUES
 					(@UserCreatorId,
 					 @CreationTIme,
@@ -37,7 +39,9 @@ public class PositionRepository : IPositionRepository
 					 @State,
 					 @Description,
 					 @CatalogLevelDescription,
-					 @CatalogLevelId)
+					 @CatalogLevelId,
+					 @ClientId,
+					 @ClientDescription)
 				RETURNING "Id";
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -51,7 +55,9 @@ public class PositionRepository : IPositionRepository
 					State = true,
 					entity.Description,
 					entity.CatalogLevelDescription,
-					entity.CatalogLevelId
+					entity.CatalogLevelId,
+					entity.ClientId,
+					entity.ClientDescription
 				});
 			return result;
 		}, cancellationToken);
@@ -97,7 +103,9 @@ public class PositionRepository : IPositionRepository
 				       "DateLastModify",
 				       "Description",
 				       "CatalogLevelDescription",
-				       "CatalogLevelId"
+				       "CatalogLevelId",
+				       "ClientId",
+				       "ClientDescription"
 				FROM "Position" /**where**/
 				;
 				""";
@@ -139,7 +147,9 @@ public class PositionRepository : IPositionRepository
 				       "DateLastModify",
 				       "Description",
 				       "CatalogLevelDescription",
-				       "CatalogLevelId"
+				       "CatalogLevelId",
+				       "ClientId",
+				       "ClientDescription"
 				FROM "Position" /**where**/
 				OFFSET @Offset
 				FETCH NEXT @PageSize ROWS ONLY;
@@ -183,7 +193,9 @@ public class PositionRepository : IPositionRepository
 				       "DateLastModify",
 				       "Description",
 				       "CatalogLevelDescription",
-				       "CatalogLevelId"
+				       "CatalogLevelId",
+				       "ClientId",
+				       "ClientDescription"
 				FROM "Position" WHERE "Id" = @PositionId;
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -205,7 +217,9 @@ public class PositionRepository : IPositionRepository
 				    "DateLastModify" = @DateLastModified,
 				    "Description" = @Description,
 				    "CatalogLevelDescription" = @CatalogLevelDescription,
-				    "CatalogLevelId" = @CatalogLevelId
+				    "CatalogLevelId" = @CatalogLevelId,
+				    "ClientId" = @ClientId,
+				    "ClientDescription" = @ClientDescription
 				WHERE "Id" = @Id
 				""";
 			using var con = _dbContext.CreateConnection();
@@ -216,7 +230,9 @@ public class PositionRepository : IPositionRepository
 				DateLastModified = DateTime.UtcNow,
 				entity.Description,
 				entity.CatalogLevelDescription,
-				entity.CatalogLevelId
+				entity.CatalogLevelId,
+				entity.ClientId,
+				entity.ClientDescription
 			});
 			return result > 0;
 		}, cancellationToken);
