@@ -24,14 +24,11 @@ public class
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
 	private readonly IMapper _mapper;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public CreateResourcePositionCommandHandler(IResourcePositionRepository repository, IMapper mapper,
-		IPublishEndpoint publishEndpoint)
+	public CreateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper)
 	{
-		_resourcePositionRepository = repository;
+		_resourcePositionRepository = resourcePositionRepository;
 		_mapper = mapper;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<Guid>> Handle(CreateResourcePositionCommand request,
@@ -48,20 +45,6 @@ public class
 	{
 		var newRecord = _mapper.Map<ResourcePosition>(request);
 		var data = await _resourcePositionRepository.CreateAsync(newRecord, cancellationToken);
-		await PublishResourcePositionCreated(request.ToResourcePositionCreated(data), cancellationToken);
 		return new Wrappers.Response<Guid>(data);
-	}
-
-	private async Task PublishResourcePositionCreated(ResourcePositionCreated resourcePosition,
-		CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			resourcePosition,
-			ctx =>
-			{
-				ctx.MessageId = resourcePosition.Id;
-				ctx.SetRoutingKey("resourcePosition.created");
-			},
-			cancellationToken);
 	}
 }

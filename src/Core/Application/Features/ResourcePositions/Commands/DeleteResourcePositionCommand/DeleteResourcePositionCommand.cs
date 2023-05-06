@@ -12,17 +12,13 @@ public class DeleteResourcePositionCommand : IRequest<Wrappers.Response<bool>>
 	public Guid Id { get; set; }
 }
 
-public class
-	DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResourcePositionCommand, Wrappers.Response<bool>>
+public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResourcePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public DeleteResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository,
-		IPublishEndpoint publishEndpoint)
+	public DeleteResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository)
 	{
 		_resourcePositionRepository = resourcePositionRepository;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(DeleteResourcePositionCommand request,
@@ -44,20 +40,6 @@ public class
 
 		var state = await _resourcePositionRepository.DeleteAsync(position.Id, cancellationToken);
 
-		await PublishResourcePositionDeleted(request.ToResourcePositionDeleted(), cancellationToken);
 		return new Wrappers.Response<bool>(state);
-	}
-
-	private async Task PublishResourcePositionDeleted(ResourcePositionDeleted resourcePosition,
-		CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			resourcePosition,
-			ctx =>
-			{
-				ctx.MessageId = resourcePosition.Id;
-				ctx.SetRoutingKey("resourcePosition.deleted");
-			},
-			cancellationToken);
 	}
 }

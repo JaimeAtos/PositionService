@@ -5,6 +5,8 @@ using Application.Consumers.CatalogLevelConsumer;
 using Application.Consumers.ClientConsumer;
 using Application.Consumers.ResourceConsumer;
 using Application.Consumers.SkillConsumer;
+using Atos.Core.Abstractions.Publishers;
+using Atos.Core.Commons.Publishers;
 using Atos.Core.EventsDTO;
 using MassTransit;
 
@@ -16,6 +18,16 @@ public static class DependencyContainer
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 		services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<CreatePositionCommand>());
+		
+		services.AddScoped<IPublisherCommands<PositionUpdated>, PublisherCommands<PositionUpdated>>();
+		services.AddScoped<IPublisherCommands<PositionDeleted>, PublisherCommands<PositionDeleted>>();
+		
+		services.AddScoped<IPublisherCommands<PositionSkillUpdated>, PublisherCommands<PositionSkillUpdated>>();
+		services.AddScoped<IPublisherCommands<PositionSkillDeleted>, PublisherCommands<PositionSkillDeleted>>();
+		
+		services.AddScoped<IPublisherCommands<ResourcePositionUpdated>, PublisherCommands<ResourcePositionUpdated>>();
+		services.AddScoped<IPublisherCommands<ResourcePositionDeleted>, PublisherCommands<ResourcePositionDeleted>>();
+		
 		services.AddMassTransit(cfg =>
 		{
 			cfg.AddConsumer<SkillUpdatedConsumer>();

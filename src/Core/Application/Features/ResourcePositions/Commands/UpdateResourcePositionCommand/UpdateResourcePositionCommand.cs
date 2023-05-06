@@ -20,19 +20,16 @@ public class UpdateResourcePositionCommand : IRequest<Wrappers.Response<bool>>
 	public string? RomaId { get; set; }
 }
 
-public class
-	UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResourcePositionCommand, Wrappers.Response<bool>>
+public class UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResourcePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
 	private readonly IMapper _mapper;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public UpdateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper,
-		IPublishEndpoint publishEndpoint)
+
+	public UpdateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper)
 	{
 		_resourcePositionRepository = resourcePositionRepository;
 		_mapper = mapper;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(UpdateResourcePositionCommand request,
@@ -48,21 +45,7 @@ public class
 	{
 		var newRecord = _mapper.Map<ResourcePosition>(request);
 		var data = await _resourcePositionRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
-		await PublishResourcePositionUpdated(request.ToResourcePositionUpdated(), cancellationToken);
 
 		return new Wrappers.Response<bool>(data);
-	}
-
-	private async Task PublishResourcePositionUpdated(ResourcePositionUpdated resourcePosition,
-		CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			resourcePosition,
-			ctx =>
-			{
-				ctx.MessageId = resourcePosition.Id;
-				ctx.SetRoutingKey("resourcePosition.updated");
-			},
-			cancellationToken);
 	}
 }

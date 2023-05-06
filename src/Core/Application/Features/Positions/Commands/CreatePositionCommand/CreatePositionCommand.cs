@@ -22,14 +22,11 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
 {
 	private readonly IPositionRepository _positionRepository;
 	private readonly IMapper _mapper;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public CreatePositionCommandHandler(IPositionRepository questionRepository, IMapper mapper,
-		IPublishEndpoint publishEndpoint)
+	public CreatePositionCommandHandler(IPositionRepository questionRepository, IMapper mapper)
 	{
 		_positionRepository = questionRepository;
 		_mapper = mapper;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<Guid>> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
@@ -45,19 +42,7 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
 	{
 		var newRecord = _mapper.Map<Position>(request);
 		var data = await _positionRepository.CreateAsync(newRecord, cancellationToken);
-		await PublishCreatePositionCommand(request.ToPositionCreated(data), cancellationToken);
 		return new Wrappers.Response<Guid>(data);
 	}
 
-	private async Task PublishCreatePositionCommand(PositionCreated request, CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			request,
-			ctx =>
-			{
-				ctx.MessageId = request.Id;
-				ctx.SetRoutingKey("position.created");
-			},
-			cancellationToken);
-	}
 }

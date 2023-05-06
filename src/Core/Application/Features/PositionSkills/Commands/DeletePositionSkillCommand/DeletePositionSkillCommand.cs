@@ -15,13 +15,10 @@ public class DeletePositionSkillCommand : IRequest<Wrappers.Response<bool>>
 public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionSkillCommand, Wrappers.Response<bool>>
 {
 	private readonly IPositionSkillRepository _positionSkillRepository;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public DeletePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository,
-		IPublishEndpoint publishEndpoint)
+	public DeletePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository)
 	{
 		_positionSkillRepository = positionSkillRepository;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(DeletePositionSkillCommand request, CancellationToken cancellationToken)
@@ -40,20 +37,6 @@ public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionS
 
 		var state = await _positionSkillRepository.DeleteAsync(deleteRecord.Id, cancellationToken);
 
-		await PublishPositionSkillDeleted(request.ToPositionSkillDeleted(), cancellationToken);
 		return new Wrappers.Response<bool>(state);
-	}
-
-	private async Task PublishPositionSkillDeleted(PositionSkillDeleted positionSkill,
-		CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			positionSkill,
-			ctx =>
-			{
-				ctx.MessageId = positionSkill.Id;
-				ctx.SetRoutingKey("positionSkill.deleted");
-			},
-			cancellationToken);
 	}
 }

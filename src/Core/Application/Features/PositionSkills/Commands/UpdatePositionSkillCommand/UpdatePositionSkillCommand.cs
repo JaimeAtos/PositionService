@@ -24,14 +24,12 @@ public class UpdatePositionSkillCommandHandler : IRequestHandler<UpdatePositionS
 {
 	private readonly IPositionSkillRepository _positionSkillRepository;
 	private readonly IMapper _mapper;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public UpdatePositionSkillCommandHandler(IPositionSkillRepository repository, IMapper mapper,
-		IPublishEndpoint publishEndpoint)
+
+	public UpdatePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository, IMapper mapper)
 	{
-		_positionSkillRepository = repository;
+		_positionSkillRepository = positionSkillRepository;
 		_mapper = mapper;
-		_publishEndpoint = publishEndpoint;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(UpdatePositionSkillCommand request,
@@ -47,20 +45,6 @@ public class UpdatePositionSkillCommandHandler : IRequestHandler<UpdatePositionS
 	{
 		var newRecord = _mapper.Map<PositionSkill>(request);
 		var data = await _positionSkillRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
-		await PublishPositionSkillUpdated(request.ToPositionSkillUpdated(), cancellationToken);
 		return new Wrappers.Response<bool>(data);
-	}
-
-	private async Task PublishPositionSkillUpdated(PositionSkillUpdated positionSkill,
-		CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			positionSkill,
-			ctx =>
-			{
-				ctx.MessageId = positionSkill.Id;
-				ctx.SetRoutingKey("positionSkill.updated");
-			},
-			cancellationToken);
 	}
 }

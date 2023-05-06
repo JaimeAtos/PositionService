@@ -16,13 +16,12 @@ public class DeletePositionCommand : IRequest<Wrappers.Response<bool>>
 public class DeletePositionCommandHandler : IRequestHandler<DeletePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IPositionRepository _positionRepository;
-	private readonly IPublishEndpoint _publishEndpoint;
 
-	public DeletePositionCommandHandler(IPositionRepository positionRepository, IPublishEndpoint publishEndpoint)
+	public DeletePositionCommandHandler(IPositionRepository positionRepository)
 	{
 		_positionRepository = positionRepository;
-		_publishEndpoint = publishEndpoint;
 	}
+
 
 	public Task<Wrappers.Response<bool>> Handle(DeletePositionCommand request, CancellationToken cancellationToken)
 	{
@@ -41,20 +40,7 @@ public class DeletePositionCommandHandler : IRequestHandler<DeletePositionComman
 
 		var state = await _positionRepository.DeleteAsync(position.Id, cancellationToken);
 
-		await PublishPositionDeleted(request.ToPositionDeleted(), cancellationToken);
 		
 		return new Wrappers.Response<bool>(state);
-	}
-
-	private async Task PublishPositionDeleted(PositionDeleted request, CancellationToken cancellationToken)
-	{
-		await _publishEndpoint.Publish(
-			request,
-			ctx =>
-			{
-				ctx.MessageId = request.Id;
-				ctx.SetRoutingKey("position.deleted");
-			},
-			cancellationToken);
 	}
 }
