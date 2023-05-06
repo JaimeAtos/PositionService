@@ -1,11 +1,10 @@
 using Application.Exceptions;
-using Application.Extensions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories;
-using MassTransit;
 using MediatR;
 
 namespace Application.Features.Positions.Commands.UpdatePositionCommand;
@@ -24,12 +23,15 @@ public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionComman
 {
 	private readonly IPositionRepository _positionRepository;
 	private readonly IMapper _mapper;
+	private readonly IPublisherCommands<PositionUpdated> _publisher;
 
 
-	public UpdatePositionCommandHandler(IPositionRepository positionRepository, IMapper mapper)
+	public UpdatePositionCommandHandler(IPositionRepository positionRepository, IMapper mapper,
+		IPublisherCommands<PositionUpdated> publisher)
 	{
 		_positionRepository = positionRepository;
 		_mapper = mapper;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(UpdatePositionCommand request, CancellationToken cancellationToken)
@@ -45,6 +47,8 @@ public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionComman
 	{
 		var newRecord = _mapper.Map<Position>(request);
 		var data = await _positionRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
+		await _publisher.PublishEntityMessage(request.ToPositionUpdated(), "position.updated", request.Id,
+			cancellationToken);
 		return new Wrappers.Response<bool>(data);
 	}
 }

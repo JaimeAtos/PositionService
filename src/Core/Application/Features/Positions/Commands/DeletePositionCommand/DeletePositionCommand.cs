@@ -1,9 +1,8 @@
 using Application.Exceptions;
-using Application.Extensions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using Domain.Repositories;
-using MassTransit;
 using MediatR;
 
 namespace Application.Features.Positions.Commands.DeletePositionCommand;
@@ -16,10 +15,13 @@ public class DeletePositionCommand : IRequest<Wrappers.Response<bool>>
 public class DeletePositionCommandHandler : IRequestHandler<DeletePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IPositionRepository _positionRepository;
+	private readonly IPublisherCommands<PositionDeleted> _publisher;
 
-	public DeletePositionCommandHandler(IPositionRepository positionRepository)
+	public DeletePositionCommandHandler(IPositionRepository positionRepository,
+		IPublisherCommands<PositionDeleted> publisher)
 	{
 		_positionRepository = positionRepository;
+		_publisher = publisher;
 	}
 
 
@@ -40,7 +42,9 @@ public class DeletePositionCommandHandler : IRequestHandler<DeletePositionComman
 
 		var state = await _positionRepository.DeleteAsync(position.Id, cancellationToken);
 
-		
+		await _publisher.PublishEntityMessage(request.ToPositionDeleted(), "position.deleted", request.Id,
+			cancellationToken);
+
 		return new Wrappers.Response<bool>(state);
 	}
 }
