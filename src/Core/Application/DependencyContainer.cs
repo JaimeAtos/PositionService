@@ -2,6 +2,7 @@ using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Consumers.CatalogLevelConsumer;
+using Application.Consumers.ClientConsumer;
 using Application.Consumers.ResourceConsumer;
 using Application.Consumers.SkillConsumer;
 using Atos.Core.EventsDTO;
@@ -26,6 +27,9 @@ public static class DependencyContainer
 			cfg.AddConsumer<CatalogLevelUpdatedConsumer>();
 			cfg.AddConsumer<CatalogLevelDeletedConsumer>();
 			
+			cfg.AddConsumer<ClientUpdatedConsumer>();
+			cfg.AddConsumer<ClientDeletedConsumer>();
+			
 			cfg.UsingRabbitMq((ctx, cfgrmq) =>
 			{
 				cfgrmq.Host("amqp://guest:guest@localhost:5672");
@@ -45,6 +49,8 @@ public static class DependencyContainer
 					configureEndpoint.ConfigureConsumer<CatalogLevelUpdatedConsumer>(ctx);
 					configureEndpoint.ConfigureConsumer<CatalogLevelDeletedConsumer>(ctx);
 					
+					configureEndpoint.ConfigureConsumer<ClientUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<ClientDeletedConsumer>(ctx);
 					
 					configureEndpoint.UseMessageRetry(retryConfigure =>
 					{
@@ -86,6 +92,18 @@ public static class DependencyContainer
 					{
 						d.ExchangeType = "topic";
 						d.RoutingKey = "catalog.level.deleted";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ClientUpdated", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "client.updated";
+					});
+					
+					configureEndpoint.Bind("Atos.Core.EventsDTO:ClientDeleted", d =>
+					{
+						d.ExchangeType = "topic";
+						d.RoutingKey = "client.deleted";
 					});
 				});
 				
