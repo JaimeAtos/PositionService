@@ -1,10 +1,10 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories;
-using MassTransit;
 using MediatR;
 
 namespace Application.Features.Positions.Commands.CreatePositionCommand;
@@ -22,11 +22,14 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
 {
 	private readonly IPositionRepository _positionRepository;
 	private readonly IMapper _mapper;
+	private readonly IPublisherCommands<PositionCreated> _publisher;
 
-	public CreatePositionCommandHandler(IPositionRepository questionRepository, IMapper mapper)
+	public CreatePositionCommandHandler(IPositionRepository questionRepository, IMapper mapper,
+		IPublisherCommands<PositionCreated> publisher)
 	{
 		_positionRepository = questionRepository;
 		_mapper = mapper;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<Guid>> Handle(CreatePositionCommand request, CancellationToken cancellationToken)
@@ -42,7 +45,10 @@ public class CreatePositionCommandHandler : IRequestHandler<CreatePositionComman
 	{
 		var newRecord = _mapper.Map<Position>(request);
 		var data = await _positionRepository.CreateAsync(newRecord, cancellationToken);
+		
+		await _publisher.PublishEntityMessage(request.ToPositionCreated(data), "position.created", data,
+			cancellationToken);
+		
 		return new Wrappers.Response<Guid>(data);
 	}
-
 }
