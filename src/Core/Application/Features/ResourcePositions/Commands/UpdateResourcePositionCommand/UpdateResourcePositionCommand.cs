@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
@@ -20,16 +21,20 @@ public class UpdateResourcePositionCommand : IRequest<Wrappers.Response<bool>>
 	public string? RomaId { get; set; }
 }
 
-public class UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResourcePositionCommand, Wrappers.Response<bool>>
+public class
+	UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResourcePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
 	private readonly IMapper _mapper;
+	private readonly IPublisherCommands<ResourcePositionUpdated> _publisher;
 
 
-	public UpdateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper)
+	public UpdateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper,
+		IPublisherCommands<ResourcePositionUpdated> publisher)
 	{
 		_resourcePositionRepository = resourcePositionRepository;
 		_mapper = mapper;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(UpdateResourcePositionCommand request,
@@ -45,6 +50,9 @@ public class UpdateResourcePositionCommandHandler : IRequestHandler<UpdateResour
 	{
 		var newRecord = _mapper.Map<ResourcePosition>(request);
 		var data = await _resourcePositionRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
+
+		await _publisher.PublishEntityMessage(request.ToResourcePositionUpdated(), "resourcePosition.updated",
+			request.Id, cancellationToken);
 
 		return new Wrappers.Response<bool>(data);
 	}

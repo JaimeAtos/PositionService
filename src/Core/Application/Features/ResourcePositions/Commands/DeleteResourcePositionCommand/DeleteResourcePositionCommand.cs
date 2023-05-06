@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
@@ -12,13 +13,17 @@ public class DeleteResourcePositionCommand : IRequest<Wrappers.Response<bool>>
 	public Guid Id { get; set; }
 }
 
-public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResourcePositionCommand, Wrappers.Response<bool>>
+public class
+	DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResourcePositionCommand, Wrappers.Response<bool>>
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
+	private readonly IPublisherCommands<ResourcePositionDeleted> _publisher;
 
-	public DeleteResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository)
+	public DeleteResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository,
+		IPublisherCommands<ResourcePositionDeleted> publisher)
 	{
 		_resourcePositionRepository = resourcePositionRepository;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(DeleteResourcePositionCommand request,
@@ -39,6 +44,9 @@ public class DeleteResourcePositionCommandHandler : IRequestHandler<DeleteResour
 			throw new ApiException($" Entity with {request.Id} not found");
 
 		var state = await _resourcePositionRepository.DeleteAsync(position.Id, cancellationToken);
+
+		await _publisher.PublishEntityMessage(request.ToResourcePositionDeleted(), "resourcePosition.deleted",
+			request.Id, cancellationToken);
 
 		return new Wrappers.Response<bool>(state);
 	}

@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
@@ -24,11 +25,14 @@ public class
 {
 	private readonly IResourcePositionRepository _resourcePositionRepository;
 	private readonly IMapper _mapper;
+	private readonly IPublisherCommands<ResourcePositionCreated> _publisher;
 
-	public CreateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper)
+	public CreateResourcePositionCommandHandler(IResourcePositionRepository resourcePositionRepository, IMapper mapper,
+		IPublisherCommands<ResourcePositionCreated> publisher)
 	{
 		_resourcePositionRepository = resourcePositionRepository;
 		_mapper = mapper;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<Guid>> Handle(CreateResourcePositionCommand request,
@@ -45,6 +49,10 @@ public class
 	{
 		var newRecord = _mapper.Map<ResourcePosition>(request);
 		var data = await _resourcePositionRepository.CreateAsync(newRecord, cancellationToken);
+
+		await _publisher.PublishEntityMessage(request.ToResourcePositionCreated(data), "resourcePosition.created", data,
+			cancellationToken);
+
 		return new Wrappers.Response<Guid>(data);
 	}
 }
