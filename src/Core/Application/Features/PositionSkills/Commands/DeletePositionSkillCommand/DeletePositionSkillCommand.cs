@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
@@ -15,10 +16,13 @@ public class DeletePositionSkillCommand : IRequest<Wrappers.Response<bool>>
 public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionSkillCommand, Wrappers.Response<bool>>
 {
 	private readonly IPositionSkillRepository _positionSkillRepository;
+	private readonly IPublisherCommands<PositionSkillDeleted> _publisher;
 
-	public DeletePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository)
+	public DeletePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository,
+		IPublisherCommands<PositionSkillDeleted> publisher)
 	{
 		_positionSkillRepository = positionSkillRepository;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(DeletePositionSkillCommand request, CancellationToken cancellationToken)
@@ -36,6 +40,9 @@ public class DeletePositionSkillCommandHandler : IRequestHandler<DeletePositionS
 			throw new ApiException($"Position with id {request.Id} not found");
 
 		var state = await _positionSkillRepository.DeleteAsync(deleteRecord.Id, cancellationToken);
+
+		await _publisher.PublishEntityMessage(request.ToPositionSkillDeleted(), "positionSkill.deleted", request.Id,
+			cancellationToken);
 
 		return new Wrappers.Response<bool>(state);
 	}

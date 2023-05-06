@@ -1,5 +1,6 @@
 using Application.Exceptions;
 using Application.Extensions.Commands;
+using Atos.Core.Abstractions.Publishers;
 using Atos.Core.EventsDTO;
 using AutoMapper;
 using Domain.Entities;
@@ -24,12 +25,14 @@ public class UpdatePositionSkillCommandHandler : IRequestHandler<UpdatePositionS
 {
 	private readonly IPositionSkillRepository _positionSkillRepository;
 	private readonly IMapper _mapper;
+	private readonly IPublisherCommands<PositionSkillUpdated> _publisher;
 
-
-	public UpdatePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository, IMapper mapper)
+	public UpdatePositionSkillCommandHandler(IPositionSkillRepository positionSkillRepository, IMapper mapper,
+		IPublisherCommands<PositionSkillUpdated> publisher)
 	{
 		_positionSkillRepository = positionSkillRepository;
 		_mapper = mapper;
+		_publisher = publisher;
 	}
 
 	public Task<Wrappers.Response<bool>> Handle(UpdatePositionSkillCommand request,
@@ -45,6 +48,10 @@ public class UpdatePositionSkillCommandHandler : IRequestHandler<UpdatePositionS
 	{
 		var newRecord = _mapper.Map<PositionSkill>(request);
 		var data = await _positionSkillRepository.UpdateAsync(newRecord, newRecord.Id, cancellationToken);
+
+		await _publisher.PublishEntityMessage(request.ToPositionSkillUpdated(), "positionSkill.updated", request.Id,
+			cancellationToken);
+
 		return new Wrappers.Response<bool>(data);
 	}
 }
