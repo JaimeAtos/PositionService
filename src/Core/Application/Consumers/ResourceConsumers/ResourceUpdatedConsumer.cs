@@ -2,7 +2,7 @@ using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
 
-namespace Application.Consumers.ResourceConsumer;
+namespace Application.Consumers.ResourceConsumers;
 
 public class ResourceUpdatedConsumer : IConsumer<ResourceUpdated>
 {

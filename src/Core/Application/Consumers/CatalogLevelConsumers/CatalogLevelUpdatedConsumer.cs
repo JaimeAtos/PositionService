@@ -2,7 +2,7 @@ using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
 
-namespace Application.Consumers.CatalogLevelConsumer;
+namespace Application.Consumers.CatalogLevelConsumers;
 
 public class CatalogLevelUpdatedConsumer : IConsumer<CatalogLevelUpdated>
 {

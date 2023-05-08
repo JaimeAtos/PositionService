@@ -2,7 +2,7 @@ using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
 
-namespace Application.Consumers.SkillConsumer;
+namespace Application.Consumers.SkillConsumers;
 
 public class SkillDeletedConsumer : IConsumer<SkillDeleted>
 {

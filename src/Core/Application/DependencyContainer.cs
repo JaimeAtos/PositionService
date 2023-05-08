@@ -1,10 +1,10 @@
 using Application.Features.Positions.Commands.CreatePositionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Application.Consumers.CatalogLevelConsumer;
-using Application.Consumers.ClientConsumer;
-using Application.Consumers.ResourceConsumer;
-using Application.Consumers.SkillConsumer;
+using Application.Consumers.CatalogLevelConsumers;
+using Application.Consumers.ClientConsumers;
+using Application.Consumers.ResourceConsumers;
+using Application.Consumers.SkillConsumers;
 using Atos.Core.Abstractions.Publishers;
 using Atos.Core.Commons.Publishers;
 using Atos.Core.EventsDTO;

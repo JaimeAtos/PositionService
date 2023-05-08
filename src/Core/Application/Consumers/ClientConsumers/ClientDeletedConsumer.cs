@@ -2,7 +2,7 @@ using Atos.Core.EventsDTO;
 using Domain.Repositories;
 using MassTransit;
 
-namespace Application.Consumers.ClientConsumer;
+namespace Application.Consumers.ClientConsumers;
 
 public class ClientDeletedConsumer : IConsumer<ClientDeleted>
 {
