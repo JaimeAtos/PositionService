@@ -1001,11 +1001,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
+      "projectUniqueName": "/media/thend/DATA/Development/RiderProjects/talent-management/PositionService/src/Core/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/Domain.csproj",
+      "projectPath": "/media/thend/DATA/Development/RiderProjects/talent-management/PositionService/src/Core/Domain/Domain.csproj",
       "packagesPath": "/home/thend/.nuget/packages/",
-      "outputPath": "/media/thend/DATA/Development/RiderProjects/talent_management/PositionService/src/Core/Domain/obj/",
+      "outputPath": "/media/thend/DATA/Development/RiderProjects/talent-management/PositionService/src/Core/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/thend/.nuget/NuGet/NuGet.Config"
@@ -1021,8 +1021,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj": {
-              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent_management/Atos.Core/src/Atos.Core/Atos.Core.csproj"
+            "/media/thend/DATA/Development/RiderProjects/talent-management/Atos.Core/src/Atos.Core/Atos.Core.csproj": {
+              "projectPath": "/media/thend/DATA/Development/RiderProjects/talent-management/Atos.Core/src/Atos.Core/Atos.Core.csproj"
             }
           }
         }
