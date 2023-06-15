@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\APIConfigs\APIConfigs\APIConfigs.csproj" />
     <ProjectReference Include="..\Controllers\Controllers.csproj" />
   </ItemGroup>
 

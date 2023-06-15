@@ -1,3 +1,4 @@
+using APIConfigs;
 using Application;
 using Controllers.Middlewares;
 using Persistence;
@@ -13,6 +14,7 @@ builder.Services.AddApiVersioning();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMicroservicesCors();
 
 var app = builder.Build();
 
