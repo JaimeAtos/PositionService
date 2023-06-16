@@ -10,11 +10,13 @@ WORKDIR /src
 
 COPY ["PositionService/", "PositionService/"]
 COPY ["Atos.Core/", "Atos.Core/"]
+COPY ["APIConfigs/", "APIConfigs/"]
 
 RUN dotnet restore "PositionService/src/Presentation/PositionServiceApi/PositionServiceApi.csproj"
 
 COPY PositionService/ .
 COPY Atos.Core/ .
+COPY APIConfigs/ .
 
 WORKDIR "/src/PositionService/src/Presentation/PositionServiceApi"
 RUN dotnet build "PositionServiceApi.csproj" -c Release -o /app/build
