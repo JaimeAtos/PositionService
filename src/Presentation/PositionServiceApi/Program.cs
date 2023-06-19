@@ -1,4 +1,5 @@
 using APIConfigs;
+using APIConfigs.Policies;
 using Application;
 using Controllers.Middlewares;
 using Persistence;
@@ -11,10 +12,10 @@ var configuration = builder.Configuration;
 builder.Services.AddPersistence(configuration);
 builder.Services.AddApplicationLayer();
 builder.Services.AddApiVersioning();
+builder.Services.AddMicroservicesCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMicroservicesCors();
 
 var app = builder.Build();
 
@@ -28,7 +29,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseCors(ConsumePolicy.FrontPolicy.ToString());
 
 app.MapControllers();
 
