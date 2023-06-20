@@ -28,10 +28,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseCors(ConsumePolicy.FrontPolicy.ToString());
+
+app.UseAuthorization();
 
 app.MapControllers();
 
