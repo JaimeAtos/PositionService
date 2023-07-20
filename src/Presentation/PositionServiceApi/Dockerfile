@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS auth
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS auth
 ARG gituser
 ARG gitpass
 
