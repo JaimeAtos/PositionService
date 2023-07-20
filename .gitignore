@@ -1,0 +1,6 @@
+postgresql
+.idea
+.vs
+**/obj
+**/bin
+.dockerignore
