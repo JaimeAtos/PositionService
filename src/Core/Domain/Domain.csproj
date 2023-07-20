@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Atos.Core\src\Atos.Core\Atos.Core.csproj" />
+    <PackageReference Include="UPgrade.Microservice.SDK.Core" Version="1.0.31" />
   </ItemGroup>
-
+  
 </Project>
