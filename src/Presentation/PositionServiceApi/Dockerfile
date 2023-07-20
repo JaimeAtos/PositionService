@@ -1,24 +1,23 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS auth
+ARG gituser
+ARG gitpass
 
-COPY ["PositionService/", "PositionService/"]
-COPY ["Atos.Core/", "Atos.Core/"]
-COPY ["APIConfigs/", "APIConfigs/"]
+RUN dotnet nuget add source --username $gituser --password $gitpass --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Talent-management/index.json"
 
-RUN dotnet restore "PositionService/src/Presentation/PositionServiceApi/PositionServiceApi.csproj"
+FROM auth AS build
+WORKDIR /position
 
-COPY PositionService/ .
-COPY Atos.Core/ .
-COPY APIConfigs/ .
+COPY src/ src/
 
-WORKDIR "/src/PositionService/src/Presentation/PositionServiceApi"
+RUN dotnet restore "src/Presentation/PositionServiceApi/PositionServiceApi.csproj"
+
+WORKDIR /position/src/Presentation/PositionServiceApi
+
 RUN dotnet build "PositionServiceApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
