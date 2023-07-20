@@ -58,7 +58,7 @@ jobs:
             docker stop "$CID"
             exit 0
           else
-            echo "Unable to run container with test image" 1>&2 >> "$GITHUB_OUTPUT"
+            echo "Unable to run container with test image" 1>&2
             exit 1
           fi
       - name: Push the container
