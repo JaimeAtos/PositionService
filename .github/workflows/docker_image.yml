@@ -13,7 +13,7 @@ on:
 
 env:
   TEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/positionservice:test
-  LATEST_TAG: ${{ SECRETS.DOCKERHUB_USERNAME }}/positionservice:latest
+  LATEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/positionservice:latest
   DUSER: ${{ secrets.DOCKERHUB_USERNAME }}
   DTOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   DOCKERFILE: ./src/Presentation/PositionServiceApi/Dockerfile
