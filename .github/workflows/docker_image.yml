@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ env.DUSER }}
-          passwword: ${{ env.DTOKEN }}
+          password: ${{ env.DTOKEN }}
       - name: Docker build test tag
         uses: docker/build-push-action@v4
         with:
