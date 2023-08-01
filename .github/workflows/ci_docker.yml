@@ -1,0 +1,107 @@
+name: ci docker image
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "dev" ]
+
+env:
+  TEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/positionservice:test
+  LATEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/positionservice:latest
+  DU: ${{ secrets.DOCKERHUB_USERNAME }}
+  DT: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKERFILE: ./src/Presentation/PositionServiceApi/Dockerfile
+  USER: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ secrets.PAT }}
+
+jobs:
+  test_docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: docker-hub-auth
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DU }}
+          password: ${{ env.DT }}
+
+      - id: test-docker-image
+        uses: docker/build-push-action@v4
+        with:
+          build-args: |
+            gituser=${{ env.USER }}
+            gitpass=${{ env.PASSWORD }}
+            dbpass=password
+            dbuser=user
+            dbport=1111
+            dbname=db
+            dbhost=localhost
+            mquser=user
+            mqpass=mqpassword
+            mqhost=localhost
+            mqport=2222
+          context: .
+          load: true
+          file: ${{ env.DOCKERFILE }}
+          tags: ${{ env.TEST_TAG }}
+
+      - id: test-container
+        name: Test docker container
+        shell: bash
+        run: |
+          CID=$(docker run -d --rm -p '8080:80' ${{ env.TEST_TAG }})
+          if [[ -n "$CID" ]]; then
+            sleep 5
+            docker exec "$CID" /bin/bash -c "/bin/echo 'this is within the container'" && \
+            docker stop "$CID"
+            exit 0
+          else
+            echo "Unable to run container with test image" 1>&2
+            exit 1
+          fi
+
+      - id: test-container-ports
+        name: Test connectivty of the container
+        shell: bash
+        run: |
+          CID=$(docker run -d --rm -p '8080:80' ${{ env.TEST_TAG }})
+          if [[ -n "$CID" ]]; then
+            sleep 5
+            echo '' > /dev/tcp/127.0.0.1/8080 && \
+            docker stop "$CID" 
+          else
+            echo "Unable to run container with test image" 1>&2
+            exit 1
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+
+    needs: test_docker
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DU }}
+          password: ${{ env.DT }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Push container
+        uses: docker/build-push-action@v4
+        with:
+          build-args: |
+            gituser=${{ env.USER }}
+            gitpass=${{ env.PASSWORD }}
+          context: .
+          file: ${{ env.DOCKERFILE }}
+          tags: ${{ env.LATEST_TAG }}
+          push: true
+

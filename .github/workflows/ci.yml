@@ -1,0 +1,42 @@
+name: build and test code
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ 'dev' ]
+
+env:
+  DOTNET_VERSION: 7.0.x
+  CONFIGURATION: Debug
+  USER: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ SECRETS.PAT }}
+
+jobs:
+  build_and_code:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: setup-dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - id: auth-nuget
+        run: dotnet nuget add source --username ${{ env.USER }} --password ${{ env.PASSWORD }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Talent-management/index.json"
+
+      - id: dependencies
+        run: dotnet restore
+
+      - id: build
+        run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+
+      - id: xunit-test
+        run: dotnet test --no-restore --verbosity normal
+

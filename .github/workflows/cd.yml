@@ -1,0 +1,54 @@
+name: GCP Deploy
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [ci docker image]
+    types: [completed]
+
+env:
+  USER: ${{ vars.GCP_VM_USER }}
+  COMMAND: ${{ vars.GCP_COMMAND }}
+  ZONE: ${{ vars.GCP_ZONE }}
+  GCP_FLAGS: ${{ vars.GCP_SSH_FLAGS }}
+  WIP: ${{ secrets.WIP }}
+  SA: ${{ secrets.SERVICE_ACCOUNT }}
+  INSTANCE: ${{ secrets.GCP_INSTANCE }}
+  PROJECT: ${{ secrets.PROJECT_ID }}
+  SSH_KEY: ${{ secrets.GCP_SSH_KEY }}
+
+jobs:
+  on_failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'Unable to deploy workflow due to failure in CI docker image workflow' 1>&2
+
+  deploy_on_success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: gcp-auth
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ env.WIP }}
+          service_account: ${{ env.SA }}
+
+      - id: deploy-service
+        uses: google-github-actions/ssh-compute@v0
+        with:
+          user: ${{ env.USER }}
+          instance_name: ${{ env.INSTANCE }}
+          project_id: ${{ env.PROJECT }}
+          zone: ${{ env.ZONE }}
+          ssh_private_key: ${{ env.SSH_KEY }}
+          flags: ${{ env.GCP_FLAGS }}
+          command: ${{ env.COMMAND }}
+
