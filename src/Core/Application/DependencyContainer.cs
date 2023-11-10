@@ -64,7 +64,7 @@ public static class DependencyContainer
 					configureEndpoint.Durable = true;
 
 					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
-					configureEndpoint.ConfigureConsumer<SkillUpdatedConsumer>(ctx);
+					configureEndpoint.ConfigureConsumer<SkillDeletedConsumer>(ctx);
 
 					configureEndpoint.ConfigureConsumer<ResourceUpdatedConsumer>(ctx);
 					configureEndpoint.ConfigureConsumer<ResourceDeletedConsumer>(ctx);
